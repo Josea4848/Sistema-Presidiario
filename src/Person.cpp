@@ -13,8 +13,8 @@ Person::Person(string name, string cpf, string skinColor, char sex, int age, boo
 
 //Name
 void Person::setName(string name) {
-  if(nome == ""){
-    this->nome = campoInvalido;
+  if(name == ""){
+    this->name = campoInvalido;
   }else
     this->name = name;
 }
@@ -24,8 +24,8 @@ string Person::getName() {
 
 //CPF
 void Person::setCPF(string cpf) {
-  if(CPF == ""){
-      this->CPF = campoInvalido;
+  if(cpf == ""){
+      this->cpf = campoInvalido;
    }else
       this->cpf = cpf;
 }
