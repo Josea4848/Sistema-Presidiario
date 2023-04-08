@@ -9,8 +9,8 @@ class Prisoner  : public Person
     public:
        
         Prisoner();
-        Prisoner(string);
-        Prisoner(string name, string cpf, string skinColor, char sex, int age, bool pdl);
+        Prisoner(string crime);
+        Prisoner(string name, string cpf, string skinColor, char sex, int age, bool pdl, string crime);
         
         //Crime
         void setCrime(string);
