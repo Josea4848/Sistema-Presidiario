@@ -1,7 +1,7 @@
 #include "../include/Person.h"
 
 //Construtores
-Person::Person() : Person("undefined", "undefined", "undefined", '0', 0, false) {}
+Person::Person() : Person(desconhecido, desconhecido, desconhecido, '0', 0, false) {}
 Person::Person(string name, string cpf, string skinColor, char sex, int age, bool ppl) {
     setName(name);
     setCPF(cpf);
