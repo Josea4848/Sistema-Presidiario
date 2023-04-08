@@ -9,7 +9,6 @@ using namespace std;
 const string desconhecido = "Campo Não informado";
 const string campoInvalido = "Campo Inválido";
 
-//Classe abstrata
 
 class Person
 {
@@ -19,7 +18,7 @@ public:
     */
 
     Person();
-    Person(string name, string cpf, string skinColor, char sexo, int idade, bool pdl);
+    Person(string name, string cpf, string skinColor, char sexo, int age, bool pdl);
 
     //Name
     virtual void setName(string name);
