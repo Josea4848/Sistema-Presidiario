@@ -6,6 +6,9 @@
 
 using namespace std;
 
+const string desconhecido = "Campo Não informado";
+const string campoInvalido = "Campo Inválido";
+
 //Classe abstrata
 
 class Person
