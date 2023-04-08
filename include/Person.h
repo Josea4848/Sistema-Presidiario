@@ -12,11 +12,11 @@ class Person
 {
 public:
     /*
-    bool ppl -> Person privada de liberdade (true ou false)
+    bool pdl -> Person deprivied of liberty (true ou false)
     */
 
     Person();
-    Person(string name, string cpf, string skinColor, char sexo, int idade, bool ppl);
+    Person(string name, string cpf, string skinColor, char sexo, int idade, bool pdl);
 
     //Name
     virtual void setName(string name);
@@ -39,14 +39,14 @@ public:
     virtual int getAge();
 
     //PPL
-    virtual void setPPL(bool ppl);
+    virtual void setPPL(bool pdl);
     virtual bool isPPL();
 
 protected:
     string name, cpf, skinColor;
     char sex;
     int age;
-    bool ppl;
+    bool pdl;
 };
 
 #endif
