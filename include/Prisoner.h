@@ -12,7 +12,6 @@ class Prisoner  : public Person
         Prisoner(string);
         Prisoner(string name, string cpf, string skinColor, char sex, int age, bool pdl);
         
-        
         //Crime
         void setCrime(string);
         string getCrime();
