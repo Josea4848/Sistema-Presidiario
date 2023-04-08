@@ -19,4 +19,4 @@ string Prisoner::getCrime(){
   return crime;
 }
         
-virtual ~Prisoner::Prisoner(){}
+virtual Prisoner::~Prisoner(){}
