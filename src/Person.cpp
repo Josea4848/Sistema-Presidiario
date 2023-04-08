@@ -73,7 +73,9 @@ void Person::setPDL(bool pdl) {
     else
         this->pdl = false;
 }
-bool Person::isPDL() {
+bool Person::~isPDL() {
   return pdl;
 }
+
+Person::~Person(){}
 
