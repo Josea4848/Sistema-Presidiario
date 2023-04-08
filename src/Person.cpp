@@ -2,13 +2,13 @@
 
 //Construtores
 Person::Person() : Person(desconhecido, desconhecido, desconhecido, '0', 0, false) {}
-Person::Person(string name, string cpf, string skinColor, char sex, int age, bool ppl) {
+Person::Person(string name, string cpf, string skinColor, char sex, int age, bool pdl) {
     setName(name);
     setCPF(cpf);
     setSkinColor(skinColor);
     setSex(sex);
     setAge(age);
-    setPDL(ppl);
+    setPDL(pdl);
 }
 
 //Name
