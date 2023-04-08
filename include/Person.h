@@ -41,9 +41,9 @@ public:
     virtual void setAge(int age);
     virtual int getAge();
 
-    //PPL
-    virtual void setPPL(bool pdl);
-    virtual bool isPPL();
+    //PDL
+    virtual void setPDL(bool pdl);
+    virtual bool isPDL();
 
 protected:
     string name, cpf, skinColor;

@@ -8,7 +8,7 @@ Person::Person(string name, string cpf, string skinColor, char sex, int age, boo
     setSkinColor(skinColor);
     setSex(sex);
     setAge(age);
-    setPPL(ppl);
+    setPDL(ppl);
 }
 
 //Name
@@ -51,11 +51,11 @@ int Person::getAge() {
   return age;
 }
 
-//PPL
-void Person::setPPL(bool ppl) {
-  this->ppl = ppl;
+//PDL
+void Person::setPDL(bool pdl) {
+  this->pdl = pdl;
 }
-bool Person::isPPL() {
-  return ppl;
+bool Person::isPDL() {
+  return pdl;
 }
 
