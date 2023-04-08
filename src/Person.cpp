@@ -13,7 +13,10 @@ Person::Person(string name, string cpf, string skinColor, char sex, int age, boo
 
 //Name
 void Person::setName(string name) {
-  this->name = name;
+  if(nome == ""){
+    this->nome = campoInvalido;
+  }else
+    this->name = name;
 }
 string Person::getName() {
   return name;
@@ -21,7 +24,10 @@ string Person::getName() {
 
 //CPF
 void Person::setCPF(string cpf) {
-  this->cpf = cpf;
+  if(CPF == ""){
+      this->CPF = campoInvalido;
+   }else
+      this->cpf = cpf;
 }
 string Person::getCPF() {
   return cpf;
@@ -29,7 +35,10 @@ string Person::getCPF() {
 
 //skinColor
 void Person::setSkinColor(string skinColor) {
-  this->skinColor = skinColor;
+    if(skinColor == "")
+        skinColor = campoInvalido;
+    else
+        this->skinColor = skinColor;
 }
 string Person::getSkinColor() {
   return skinColor;
@@ -37,7 +46,10 @@ string Person::getSkinColor() {
 
 //Sex
 void Person::setSex(char sex) {
-  this->sex = sex;
+  if(toupper(sex) != 'M' && toupper(sex) != 'F')
+    this->sex = '*';
+  else
+    this->sex = sex;
 }
 char Person::getSex() {
   return sex;
@@ -45,7 +57,10 @@ char Person::getSex() {
 
 //Age
 void Person::setAge(int age) {
-  this->age = age;
+  if (age < 0){
+      this->age = 0;
+  }else
+      this->age = age;
 }
 int Person::getAge() {
   return age;
@@ -53,7 +68,10 @@ int Person::getAge() {
 
 //PDL
 void Person::setPDL(bool pdl) {
-  this->pdl = pdl;
+    if(pdl == true)
+        this->pdl = true;
+    else
+        this->pdl = false;
 }
 bool Person::isPDL() {
   return pdl;
