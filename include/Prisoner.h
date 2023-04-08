@@ -16,7 +16,7 @@ class Prisoner  : public Person
         void setCrime(string);
         string getCrime();
         
-        virtual ~Detento();
+        virtual ~Prisoner();
 
     protected:
         string crime;
