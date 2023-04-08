@@ -1,4 +1,5 @@
 #include "../include/Person.h"
+#include <cctype>
 
 //Construtores
 Person::Person() : Person(desconhecido, desconhecido, desconhecido, '0', 0, false) {}
