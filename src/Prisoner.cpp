@@ -1,4 +1,4 @@
-#include "Prisoner.h"
+#include "../include/Prisoner.h"
 
 //Construtores
 Prisoner::Prisoner(): Person(), crime(desconhecido){}
@@ -19,4 +19,4 @@ string Prisoner::getCrime(){
   return crime;
 }
         
-virtual ~Prisoner(){}
+virtual ~Prisoner::Prisoner(){}
