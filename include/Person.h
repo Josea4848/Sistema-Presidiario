@@ -43,6 +43,8 @@ public:
     //PDL
     virtual void setPDL(bool pdl);
     virtual bool isPDL();
+    
+    virtual void printAttributes() = 0;
 
 protected:
     string name, cpf, skinColor;
