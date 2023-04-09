@@ -27,7 +27,9 @@ public:
 
     //Word Load
     void setWorkLoad(int workLoad);
-    int getWorkLoad();  
+    int getWorkLoad(); 
+    
+    void printAttributes();
 
 private:
     string office;
