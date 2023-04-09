@@ -1,4 +1,5 @@
 #include "../include/Employee.h"
+#include <iostream>
 
 //Construtores
 Employee::Employee() : Employee(campoInvalido, 0, cargaPadrao) {}
@@ -7,6 +8,7 @@ Employee::Employee(string office, double wage, int workLoad) {
   setWage(wage);
   setWorkLoad(workLoad);
 }
+
 Employee::Employee(string name, string cpf, string skinColor, char sexo, int age, bool pdl, string office, double wage, int workLoad) : Person(name, cpf, skinColor, sexo, age, pdl){
   setOffice(office);
   setWage(wage);
@@ -21,6 +23,7 @@ void Employee::setOffice(string office) {
     this->office = office;
   }
 }
+
 string Employee::getOffice() {
   return office;
 }
@@ -33,6 +36,7 @@ void Employee::setWage(double wage) {
     this->wage = wage;
   }
 }
+
 double Employee::getWage() {
   return wage;
 }
@@ -48,6 +52,16 @@ void Employee::setWorkLoad(int workLoad) {
 int Employee::getWorkLoad() {
   return workLoad;
 }
+
+//Exibe atributos
+void Employee::printAttributes(){
+  cout << getName() << " " << getCPF() << " "  << getSex() << " " << getAge() << " " << isPDL() << " " << getWage() << " " << getWorkLoad() << endl;
+}
+
+Employee::~Employee(){}
+
+
+
 
 
 
