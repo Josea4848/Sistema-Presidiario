@@ -18,5 +18,9 @@ void Prisoner::setCrime(string crime){
 string Prisoner::getCrime(){
   return crime;
 }
+
+void Prisoner::printAttributes(){
+  cout << getName() << " " << getSex()<< " " << getCPF() << " " << getAge() << " " << getSkinColor() << " " << isPDL() << " " << getCrime() << endl;
+}
         
 virtual Prisoner::~Prisoner(){}
