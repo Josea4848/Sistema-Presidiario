@@ -1,7 +1,7 @@
 #include "../include/Prisoner.h"
 
 //Construtores
-Prisoner::Prisoner(): Person(), crime(desconhecido){}
+Prisoner::Prisoner(): crime(desconhecido){}
 Prisoner::Prisoner(string crime){
   setCrime(crime);
 }
