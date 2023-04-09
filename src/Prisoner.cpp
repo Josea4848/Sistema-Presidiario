@@ -6,7 +6,7 @@ Prisoner::Prisoner(string crime){
   setCrime(crime);
 }
 Prisoner::Prisoner(string name, string cpf, string skinColor, char sex, int age, bool pdl, string crime): Person(name, cpf, skinColor, sex, age, pdl){
-  Prisoner(crime);
+  setCrime(crime);
  }
         
 void Prisoner::setCrime(string crime){
