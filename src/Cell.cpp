@@ -26,7 +26,7 @@ void Cell::registerPrisoner(Prisoner prisoner) {
 
 //Get prisoner
 Prisoner Cell::getPrisoner(int index) {
-  return *prisoners[index];
+  return *prisoners[--index];
 }
 
 //Print prisoners
@@ -38,5 +38,14 @@ void Cell::printPrisoners() {
   }
 }
 
+//is Full
+bool Cell::isFull() {
+  for(int i = 0; i < LIMITE; i++) {
+    if(prisoners[i]->getName() == desconhecido)
+      return false;
+  }
+}
+
 //Destrutor
 Cell::~Cell() {}
+

@@ -44,7 +44,11 @@ public:
     virtual void setPDL(bool pdl);
     virtual bool isPDL();
     
+    //Exibe os atributos
     virtual void printAttributes() = 0;
+
+    //Destrutor
+    virtual ~Person();
 
 protected:
     string name, cpf, skinColor;

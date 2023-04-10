@@ -23,6 +23,9 @@ public:
     //Get prisoner by index
     Prisoner getPrisoner(int index);
 
+    //IsFull
+    bool isFull();
+
     //Destrutor
     ~Cell();
 

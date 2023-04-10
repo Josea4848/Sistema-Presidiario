@@ -31,6 +31,8 @@ public:
     
     void printAttributes();
 
+    virtual ~Employee();
+
 private:
     string office;
     double wage;
