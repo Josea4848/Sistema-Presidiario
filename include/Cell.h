@@ -26,11 +26,11 @@ public:
     //Destrutor
     ~Cell();
 
-    Prisoner *prisoners[LIMITE];
+    
 
 private:
     int index;
-    
+    Prisoner *prisoners[LIMITE];
 };
 
 #endif
