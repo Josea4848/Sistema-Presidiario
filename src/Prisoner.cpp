@@ -1,4 +1,5 @@
 #include "../include/Prisoner.h"
+#include <iostream>
 
 //Construtores
 Prisoner::Prisoner(): crime(desconhecido){}
@@ -23,4 +24,4 @@ void Prisoner::printAttributes(){
   cout << getName() << " " << getSex()<< " " << getCPF() << " " << getAge() << " " << getSkinColor() << " " << isPDL() << " " << getCrime() << endl;
 }
         
-virtual Prisoner::~Prisoner(){}
+Prisoner::~Prisoner(){}
