@@ -1,6 +1,6 @@
 #ifndef CELL_H
 #define CELL_H
-#define LIMITE 10
+#define n_LIMITE 10
 
 #pragma once
 
