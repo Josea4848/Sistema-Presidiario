@@ -33,7 +33,7 @@ public:
 
 private:
     int index;
-    Prisoner *prisoners[LIMITE];
+    Prisoner *prisoners[n_LIMITE];
 };
 
 #endif

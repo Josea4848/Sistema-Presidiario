@@ -3,7 +3,7 @@
 //Construtor
 Cell::Cell() {
   index = 0;
-  for(int i = 0; i < LIMITE; i++) {
+  for(int i = 0; i < n_LIMITE; i++) {
     //Medida de segurança de código, garante que não haverá "espaços vazios"
     prisoners[i] = new Prisoner();
   }
@@ -13,7 +13,7 @@ Cell::Cell() {
 void Cell::registerPrisoner(Prisoner prisoner) {
   bool possui = false;
   //Verifica se o CPF já está contido no vetor
-  for(int i = 0; i < LIMITE; i++) {
+  for(int i = 0; i < n_LIMITE; i++) {
     if(prisoners[i]->getCPF() == prisoner.getCPF()) 
       possui = true;
   }
@@ -31,7 +31,7 @@ Prisoner Cell::getPrisoner(int index) {
 
 //Print prisoners
 void Cell::printPrisoners() {
-  for(int i = 0; i < LIMITE; i++) {
+  for(int i = 0; i < n_LIMITE; i++) {
     if(prisoners[i]->getName() != desconhecido) {
       prisoners[i]->printAttributes();
     }
@@ -40,7 +40,7 @@ void Cell::printPrisoners() {
 
 //is Full
 bool Cell::isFull() {
-  for(int i = 0; i < LIMITE; i++) {
+  for(int i = 0; i < n_LIMITE; i++) {
     if(prisoners[i]->getName() == desconhecido)
       return false;
   }
