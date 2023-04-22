@@ -5,6 +5,7 @@
 #pragma once
 
 #include <iostream>
+#include <vector>
 #include "../include/Prisoner.h"
 
 using namespace std;
@@ -21,7 +22,7 @@ public:
     void printPrisoners();
     
     //Get prisoner by index
-    Prisoner getPrisoner(int index);
+    Prisoner* getPrisoner(int index);
 
     //IsFull
     bool isFull();
@@ -29,11 +30,8 @@ public:
     //Destrutor
     ~Cell();
 
-    
-
 private:
-    int index;
-    Prisoner *prisoners[n_LIMITE];
+    vector<Prisoner*> prisoners;
 };
 
 #endif
