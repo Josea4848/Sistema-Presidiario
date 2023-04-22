@@ -18,13 +18,20 @@ class Penitentiary
         //Construtor
         Penitentiary();
 
-        //Register
-        void registerEmployee(Employee employee);
-        //void registerPrisoner(Prisoner prisoner);
-      
         //Gets
         Employee* getEmployee(int emplIndex);
         Cell* getCell(int cellsIndex);
+
+        //Register
+        void registerEmployee(Employee employee);
+        void registerPrisoner(Prisoner prisoner, int indexCell);
+
+        //Update
+        //void updateEmployee(Employee Employee, string cpf);
+
+        //Delete
+        void deleteEmployee(string cpf);
+        void deletePrisoner(string cpf);
 
         //Destrutor
         virtual ~Penitentiary();
