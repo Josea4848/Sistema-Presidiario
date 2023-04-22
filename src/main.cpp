@@ -19,6 +19,7 @@ int main(){
     cout << "\n\t\t\t\t******* Sistema de Controle da Penitenciária *******\n" << endl;
 
     while(running){
+    //Menu de opções 
     cout << "Qual operação deseja realizar?\n" << endl <<
                 "1 - Inserir dado" << endl <<
                 "2 - Alterar dado" << endl <<
@@ -30,6 +31,7 @@ int main(){
     cin >> option;
     switch(option){
         case 1:
+            //Inserir dados
             arquivo.open("baseDeDados.txt", ios::out | ios::app);
             arquivo.is_open(){
                 while(){
@@ -43,6 +45,7 @@ int main(){
             arquivo.close();
             break;
         case 2:
+            //Alterar dado
             arquivo.open("baseDeDados.txt", ios::out | ios::app);
             while(){
                     
@@ -54,6 +57,7 @@ int main(){
             arquivo.close();
             break;
         case 3:
+            //Pesquisar por meio do nome
             arquivo.open("baseDeDados.txt", ios::in);
             while(){
                     
@@ -65,6 +69,7 @@ int main(){
             arquivo.close();
             break;
         case 4:
+            //Remover dado
             arquivo.open("baseDeDados.txt", ios::out | ios::app);
             while(){
                     
@@ -76,6 +81,7 @@ int main(){
             arquivo.close();
             break;
         case 5:
+            //Exibir dado
             arquivo.open("baseDeDados.txt", ios::in);
             while(){
                     
@@ -87,6 +93,7 @@ int main(){
             arquivo.close();
             break;
         case 6:
+            //Encerrar o programa
             cout << "Obrigado por utilizar nosso software. Bom trabalho!" << endl;
             running = false;
             break;
