@@ -2,6 +2,7 @@
 #define Penitentiary_h
 
 #pragma once
+#include <vector>
 #include "Employee.h"
 #include "Prisoner.h"
 #include "Cell.h"
@@ -19,20 +20,18 @@ class Penitentiary
 
         //Register
         void registerEmployee(Employee employee);
-        void registerPrisoner(Prisoner prisoner);
+        //void registerPrisoner(Prisoner prisoner);
       
         //Gets
-        Employee getEmployee(int emplIndex);
-        Cell getCell(int cellsIndex);
+        Employee* getEmployee(int emplIndex);
+        Cell* getCell(int cellsIndex);
 
         //Destrutor
         virtual ~Penitentiary();
 
     private:
-        Employee *employers[n_EMPLOYERS];
-        Cell *cells[n_CELLS];
-        int emplIndex;
-        int cellsIndex;
+        vector<Employee*> employees;
+        Cell cells[n_CELLS];
 };
 
 #endif

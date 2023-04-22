@@ -1,47 +1,37 @@
 #include "../include/Penitentiary.h"
 
 //Construtor
-Penitentiary::Penitentiary(){
-  emplIndex = 0;
-  cellsIndex = 0;
+Penitentiary::Penitentiary(){}
 
-  for(int i = 0; i < n_EMPLOYERS; i++){
-    employers[i] = new Employee(); 
-  }
-
-  for(int j = 0; j < n_CELLS; j++) {
-    cells[j] = new Cell();
-  }
-}
-
-//Register emplyee
+//Register employee
 void Penitentiary::registerEmployee(Employee employee) {
   bool possui = false;
 
   //Verifica se já está contido
-  for(int i; i < n_EMPLOYERS; i++) {
-    if(employers[i]->getCPF() == employee.getCPF()) 
+  for(Employee *employeeRegistered: employees) {
+    if(employeeRegistered->getCPF() == employee.getCPF()) 
       possui = true;
   } 
 
+  //Se não está contido, um novo funcionário é cadastrado
   if(!possui) {
-    employers[emplIndex++] = new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad());
+    employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
   }
 }
 //Get Employee
-Employee Penitentiary::getEmployee(int emplIndex){
-  return *employers[emplIndex];
+Employee* Penitentiary::getEmployee(int emplIndex){
+  return employees[emplIndex];
 }
 
 //Get Prisoner
-Cell Penitentiary::getCell(int cellsIndex){
-  return *cells[cellsIndex];
+Cell* Penitentiary::getCell(int cellsIndex){
+  return &cells[cellsIndex];
 }
 
-//Register prisoner
-void Penitentiary::registerPrisoner(Prisoner prisoner,) {
+/* //Register prisoner
+void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
 
-}
+} */
 
 //Destrutor
 Penitentiary::~Penitentiary(){}
