@@ -4,7 +4,7 @@
 Cell::Cell() {}
 
 //Register prisoner
-void Cell::registerPrisoner(Prisoner prisoner) {
+void Cell::addPrisoner(Prisoner prisoner) {
   //Caso a cela não esteja cheia
   if(!isFull()) { 
     bool possui = false;
@@ -41,14 +41,47 @@ void Cell::printPrisoners() {
   }
 }
 
+//number of prisoners
+int Cell::numberPrisoners() {
+  return prisoners.size();
+}
+
 //is Full
 bool Cell::isFull() {
-  if(prisoners.size() == n_LIMITE) 
+  if(numberPrisoners() == n_LIMITE) 
     return true;
   else 
     return false;
 }
 
+//Remove prisoner
+void Cell::removePrisoner(string cpf) {
+  //Verifica se o prisioneiro está contido
+  bool isContained = isPrisonerContained(cpf);
+
+  if(isContained) {
+    for(int i = 0; i < prisoners.size(); i++) {
+      if(prisoners[i]->getCPF() == cpf) {
+        prisoners.erase(prisoners.begin() + i);
+        break;
+      }
+    }
+  }
+}
+
+//isPrisonerContained
+bool Cell::isPrisonerContained(string cpf) {
+  bool isContained = false;
+
+  for(Prisoner *prisoner: prisoners) {
+    if(prisoner->getCPF() == cpf) {
+      isContained = true;
+      break;
+    }
+  }
+
+  return isContained;
+}
+
 //Destrutor
 Cell::~Cell() {}
-

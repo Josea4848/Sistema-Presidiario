@@ -16,7 +16,7 @@ public:
     Cell();
     
     //Registrar prisioneiro
-    void registerPrisoner(Prisoner prisoner);
+    void addPrisoner(Prisoner prisoner);
 
     //Exibe prisioneiros
     void printPrisoners();
@@ -26,6 +26,15 @@ public:
 
     //IsFull
     bool isFull();
+
+    //Numero de prisioneiros atual
+    int numberPrisoners();
+
+    //Remove prisioneiro
+    void removePrisoner(string cpf);
+
+    //isPrisonerContained
+    bool isPrisonerContained(string cpf);
 
     //Destrutor
     ~Cell();
