@@ -3,21 +3,6 @@
 //Construtor
 Penitentiary::Penitentiary(){}
 
-//Register employee
-void Penitentiary::registerEmployee(Employee employee) {
-  bool possui = false;
-
-  //Verifica se já está contido
-  for(Employee *employeeRegistered: employees) {
-    if(employeeRegistered->getCPF() == employee.getCPF()) 
-      possui = true;
-  } 
-
-  //Se não está contido, um novo funcionário é cadastrado
-  if(!possui) {
-    employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
-  }
-}
 //Get Employee
 Employee* Penitentiary::getEmployee(int emplIndex){
   if(emplIndex < employees.size())
@@ -29,6 +14,14 @@ Employee* Penitentiary::getEmployee(int emplIndex){
 //Get Prisoner
 Cell* Penitentiary::getCell(int cellsIndex){
   return &cells[cellsIndex];
+}
+
+//Register employee
+void Penitentiary::registerEmployee(Employee employee) {
+  //Se não está contido, um novo funcionário é cadastrado
+  if(!isEmployeeContained(employee.getCPF())) {
+    employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
+  }
 }
 
 //Register prisoner
@@ -51,12 +44,17 @@ void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
 
 //Delete Employee
 void Penitentiary::deleteEmployee(string cpf) {
-  for(int i = 0; i < employees.size(); i++) {
-    if(employees[i]->getCPF() == cpf) {
-      employees.erase(employees.begin() + i);
-      break;
+  //Se o funcionário existir, então a ação será executada
+  if(isEmployeeContained(cpf)) { 
+    for(int i = 0; i < employees.size(); i++) {
+      if(employees[i]->getCPF() == cpf) {
+        employees.erase(employees.begin() + i);
+        break;
+      }
     }
-  }
+  } else {
+    cerr << "Funcionário(a) não encontrado(a), verifique os dados!";
+  }  
 }
 //Delete Prisoner
 void Penitentiary::deletePrisoner(string cpf) {
@@ -66,12 +64,23 @@ void Penitentiary::deletePrisoner(string cpf) {
     if(cells[i].isPrisonerContained(cpf)) {
       cells[i].removePrisoner(cpf);
       isContained = true;
+      break;
     }
   }
-
   //Após toda a verificação, caso não haja o prisioneiro
   if(!isContained)
-    cerr << "Prisioneiro não encontrado";
+    cerr << "Prisioneiro não encontrado, verifique os dados!";
+}
+
+//Is employee contained
+bool Penitentiary::isEmployeeContained(string cpf) {
+  for(Employee *employee: employees) {
+    if(employee->getCPF() == cpf)
+      return true;
+  }
+
+  //Caso não tenha funcionário com o cpf, é retornado false
+  return false;
 }
 
 //Destrutor

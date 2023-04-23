@@ -36,6 +36,9 @@ class Penitentiary
         //Destrutor
         virtual ~Penitentiary();
 
+        //Is employee contained
+        bool isEmployeeContained(string cpf);
+    
     private:
         vector<Employee*> employees;
         Cell cells[n_CELLS];
