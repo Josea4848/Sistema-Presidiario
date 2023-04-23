@@ -19,15 +19,19 @@ class Penitentiary
         Penitentiary();
 
         //Gets
-        Employee* getEmployee(int emplIndex);
+        Employee getEmployee(int emplIndex);
         Cell* getCell(int cellsIndex);
 
         //Register
         void registerEmployee(Employee employee);
         void registerPrisoner(Prisoner prisoner, int indexCell);
 
-        //Update
-        //void updateEmployee(Employee Employee, string cpf);
+        //Update Employee
+        void updateEmployeeName(string cpf, string nome);
+        void updateEmployeeOffice(string cpf, string office);
+        void updateEmployeeAge(string cpf, int age);
+        void updateEmployeeWage(string cpf, double wage);
+        void updateEmployeeWorkLoad(string cpf, int workLoad);
 
         //Delete
         void deleteEmployee(string cpf);
@@ -38,6 +42,9 @@ class Penitentiary
 
         //Is employee contained
         bool isEmployeeContained(string cpf);
+
+        //Is prisoner
+        bool isPrisoner(string cpf);
     
     private:
         vector<Employee*> employees;
