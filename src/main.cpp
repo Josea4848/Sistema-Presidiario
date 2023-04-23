@@ -7,10 +7,10 @@
 using namespace std;
 
 int main(){
-    fstream arquivo;
     Penitentiary *penitentiary = new Penitentiary();
 
     //Variáveis de controle para o funcionamento do programa
+    fstream arquivo;
     bool running = true;
     int option;
 
@@ -98,7 +98,7 @@ int main(){
             running = false;
             break;
         default:
-            cout << "Operação inválida. Por favor verifique o valor digitado" << endl;
+            cout << "Operação inválida. Por favor verifique as opções disponíveis" << endl;
             continue;
         }
 
