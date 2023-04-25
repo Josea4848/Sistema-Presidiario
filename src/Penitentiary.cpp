@@ -17,23 +17,44 @@ Cell* Penitentiary::getCell(int cellsIndex){
 }
 
 //Update employee
-void Penitentiary::updateEmployee(Employee employeeUpdt) {
-  //Se o funcionário estiver cadastrado, o dado será atualizado
-  if(isEmployeeContained(employeeUpdt.getCPF())) {
-    for(int i = 0; i < employees.size(); i++) {
-      //Se o CPF do registro e do dado de atualização forem iguais, então a atualização será feita
-      if(employees[i]->getCPF() == employeeUpdt.getCPF()) {
-        employees[i]->setName(employeeUpdt.getName());
-        employees[i]->setSkinColor(employeeUpdt.getSkinColor());
-        employees[i]->setWage(employeeUpdt.getWage());
-        employees[i]->setWorkLoad(employeeUpdt.getWorkLoad());
-        employees[i]->setOffice(employeeUpdt.getOffice());
-      }
-    }
-  }else {
-    cerr << "Funcionário não encontrado!\n";
+  //Name  
+void Penitentiary::updateEmployeeName(string cpf, string name) {
+  for(int i = 0; i < employees.size(); i++) {
+    if(employees[i]->getCPF() == cpf) 
+      employees[i]->setName(name);
   }
-    
+}
+  //Office
+void Penitentiary::updateEmployeeOffice(string cpf, string office) {
+  for(int i = 0; i < employees.size(); i++) {
+    if(employees[i]->getCPF() == cpf) {
+      employees[i]->setOffice(office);
+    }
+  }
+}
+  //Age
+void Penitentiary::updateEmployeeAge(string cpf, int age) {
+  for(int i = 0; i < employees.size(); i++) {
+    if(employees[i]->getCPF() == cpf) {
+      employees[i]->setAge(age);
+    }
+  }
+}
+  //Wage
+void Penitentiary::updateEmployeeWage(string cpf, double wage) {
+  for(int i = 0; i < employees.size(); i++) {
+    if(employees[i]->getCPF() == cpf) {
+      employees[i]->setWage(wage);
+    }
+  }
+}
+  //WorkLoad
+void Penitentiary::updateEmployeeWorkLoad(string cpf, int workLoad) {
+  for(int i = 0; i < employees.size(); i++) {
+    if(employees[i]->getCPF() == cpf) {
+      employees[i]->setWorkLoad(workLoad);
+    }
+  }
 }
 
 //Register employee
@@ -54,7 +75,7 @@ void Penitentiary::registerEmployee(Employee employee) {
 //Recebe dados do prisioneiro e o índice da cela que será cadastrado
 void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
   if(isEmployeeContained(prisoner.getCPF())) {
-    cerr << "É um funcionário!\n";
+    cerr << "O usuário é um funcionário, não é possível cadastrar!\n";
   }  
   //Verifica se o prisioneiro já está em alguma cela (verifica todas as celas)
   else if(isPrisoner(prisoner.getCPF())) {
