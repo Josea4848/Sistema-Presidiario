@@ -48,6 +48,9 @@ class Penitentiary
         //Is prisoner
         bool isPrisoner(string cpf);
 
+        //Numbers of prisoners situation
+        void prisonersNumbers();
+
         // === Destrutor ===
         virtual ~Penitentiary();
     

@@ -181,6 +181,24 @@ bool Penitentiary::isPrisoner(string cpf) {
   //Se o prisioneiro não estiver em nenhuma cela
   return false;
 }
+//Prisoners Numbers
+void Penitentiary::prisonersNumbers() {
+  cout << "======== Número de presidiários =======\n";
+  for(int i = 0; i < n_CELLS; i++) {
+    cout << "Cela C" << i << ": ";
+    //Exibe pontos para cada prisioneiro
+    for(int j = 0; j < cells[i].numberPrisoners(); j++) {
+      cout << "∎";
+    }
+    //Exibe espaços vazio
+    for(int k = 0; k < n_LIMITE - cells[i].numberPrisoners(); k++) {
+      cout << " ";
+    }
+
+    cout << " [" << cells[i].numberPrisoners() << "/" << n_LIMITE << "]\n";
+  }
+}
+
 
 //Destrutor
 Penitentiary::~Penitentiary(){}
