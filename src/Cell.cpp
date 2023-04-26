@@ -56,10 +56,10 @@ void Cell::addPrisoner(Prisoner prisoner) {
 
 //Update
   //Name
-void Cell::modifyNome(string cpf, string nome) {
+void Cell::modifyName(string cpf, string name) {
   for(int i = 0; i < prisoners.size(); i++) {
     if(prisoners[i]->getCPF() == cpf) {
-      prisoners[i]->setCPF(cpf);
+      prisoners[i]->setName(name);
     }
   }
 }

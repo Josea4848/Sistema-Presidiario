@@ -85,6 +85,52 @@ void Penitentiary::updateEmployeeWorkLoad(string cpf, int workLoad) {
     }
   }
 }
+//Update Prisoner
+  //Name
+void Penitentiary::updatePrisonerName(string cpf, string name) {
+  //Verifica se é um prisioneiro em toda a penitênciária
+  if(isPrisoner(cpf)) {
+    for(int i = 0; i < n_CELLS; i++) {
+      //Caso o prisioneiro esteja na cela
+      if(cells[i].isPrisonerContained(cpf)) {
+        cells[i].modifyName(cpf, name);
+        break;
+      }
+    }
+  } else {
+    cerr << "Prisioneiro não encontrado!\n";
+  }
+}
+  //Age
+void Penitentiary::updatePrisonerAge(string cpf, int age) {
+  //Verifica se é um prisioneiro em toda a penitênciária
+  if(isPrisoner(cpf)) {
+    for(int i = 0; i < n_CELLS; i++) {
+      //Caso o prisioneiro esteja na cela
+      if(cells[i].isPrisonerContained(cpf)) {
+        cells[i].modifyAge(cpf, age);
+        break;
+      }
+    }
+  } else {
+    cerr << "Prisioneiro não encontrado!\n";
+  }
+}
+  //Crime
+void Penitentiary::updatePrisonerCrime(string cpf,string crime) {
+  //Verifica se é um prisioneiro em toda a penitênciária
+  if(isPrisoner(cpf)) {
+    for(int i = 0; i < n_CELLS; i++) {
+      //Caso o prisioneiro esteja na cela
+      if(cells[i].isPrisonerContained(cpf)) {
+        cells[i].modifyCrime(cpf, crime);
+        break;
+      }
+    }
+  } else {
+    cerr << "Prisioneiro não encontrado!\n";
+  }
+}
 
 //Delete Employee
 void Penitentiary::deleteEmployee(string cpf) {

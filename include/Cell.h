@@ -31,7 +31,7 @@ public:
     void addPrisoner(Prisoner prisoner);
 
     //Update Prisioneiro
-    void modifyNome(string cpf, string nome);
+    void modifyName(string cpf, string name);
     void modifyAge(string cpf, int age);
     void modifyCrime(string cpf, string crime);
 
