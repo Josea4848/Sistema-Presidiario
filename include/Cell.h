@@ -14,9 +14,6 @@ class Cell {
 public:
     //Construtor
     Cell();
-    
-    //Registrar prisioneiro
-    void addPrisoner(Prisoner prisoner);
 
     //Exibe prisioneiros
     void printPrisoners();
@@ -29,6 +26,14 @@ public:
 
     //Numero de prisioneiros atual
     int numberPrisoners();
+
+    //Registrar prisioneiro
+    void addPrisoner(Prisoner prisoner);
+
+    //Update Prisioneiro
+    void modifyNome(string cpf, string nome);
+    void modifyAge(string cpf, int age);
+    void modifyCrime(string cpf, string crime);
 
     //Remove prisioneiro
     void removePrisoner(string cpf);

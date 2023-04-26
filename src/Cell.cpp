@@ -3,28 +3,6 @@
 //Construtor
 Cell::Cell() {}
 
-//Register prisoner
-void Cell::addPrisoner(Prisoner prisoner) {
-  //Caso a cela não esteja cheia
-  if(!isFull()) { 
-    bool possui = false;
-    //Verifica se o CPF já está contido no vetor
-    for(Prisoner *prisonerRegistered: prisoners) {
-      if(prisonerRegistered->getCPF() == prisoner.getCPF()) 
-        possui = true;
-    }
-    
-    //Caso não esteja contido, será criado um novo objeto no vetor
-    if(!possui) {
-      prisoners.push_back(new Prisoner(prisoner.getName(), prisoner.getCPF(), prisoner.getSkinColor(), prisoner.getSex(), prisoner.getAge(), prisoner.isPDL(), prisoner.getCrime()));
-    } 
-  }
-  //Se estiver, uma mensagem será disparada na saída de erro
-  else { 
-    cerr << "A cela está cheia! [" << prisoners.size() << "/" << n_LIMITE << "]\n"; 
-  }
-}
-
 //Get prisoner
 Prisoner* Cell::getPrisoner(int index) {
   //Se o index for maior ou igual que 0 e menor que o tamanho, será retornado o prisoner
@@ -52,6 +30,54 @@ bool Cell::isFull() {
     return true;
   else 
     return false;
+}
+
+//Register prisoner
+void Cell::addPrisoner(Prisoner prisoner) {
+  //Caso a cela não esteja cheia
+  if(!isFull()) { 
+    bool possui = false;
+    //Verifica se o CPF já está contido no vetor
+    for(Prisoner *prisonerRegistered: prisoners) {
+      if(prisonerRegistered->getCPF() == prisoner.getCPF()) 
+        possui = true;
+    }
+    
+    //Caso não esteja contido, será criado um novo objeto no vetor
+    if(!possui) {
+      prisoners.push_back(new Prisoner(prisoner.getName(), prisoner.getCPF(), prisoner.getSkinColor(), prisoner.getSex(), prisoner.getAge(), prisoner.isPDL(), prisoner.getCrime()));
+    } 
+  }
+  //Se estiver, uma mensagem será disparada na saída de erro
+  else { 
+    cerr << "A cela está cheia! [" << prisoners.size() << "/" << n_LIMITE << "]\n"; 
+  }
+}
+
+//Update
+  //Name
+void Cell::modifyNome(string cpf, string nome) {
+  for(int i = 0; i < prisoners.size(); i++) {
+    if(prisoners[i]->getCPF() == cpf) {
+      prisoners[i]->setCPF(cpf);
+    }
+  }
+}
+  //Age
+void Cell::modifyAge(string cpf, int age) {
+  for(int i = 0; i < prisoners.size(); i++) {
+    if(prisoners[i]->getCPF() == cpf) {
+      prisoners[i]->setAge(age);
+    }
+  }
+} 
+  //Crime
+void Cell::modifyCrime(string cpf, string crime) {
+  for(int i = 0; i < prisoners.size(); i++) {
+    if(prisoners[i]->getCPF() == cpf) {
+      prisoners[i]->setCrime(crime);
+    }
+  }
 }
 
 //Remove prisoner

@@ -10,11 +10,40 @@ Employee Penitentiary::getEmployee(int emplIndex){
   else 
     return Employee();
 }
-
 //Get Prisoner
 Cell* Penitentiary::getCell(int cellsIndex){
   return &cells[cellsIndex];
 }
+
+//Register employee
+void Penitentiary::registerEmployee(Employee employee) {
+  //Se for prisioneiro
+  if(isPrisoner(employee.getCPF())) {
+    cerr << "O usuário é um prisioneiro!\n";
+  }
+  //Se não está contido nos funcionários e nem é prisioneiro, um novo funcionário é cadastrado
+  else if(!isEmployeeContained(employee.getCPF())) {
+    employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
+  } else {
+    cerr << "Funcionário já está cadastrado!\n";
+  }
+}
+
+//Register prisoner
+//Recebe dados do prisioneiro e o índice da cela que será cadastrado
+void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
+  if(isEmployeeContained(prisoner.getCPF())) {
+    cerr << "O usuário é um funcionário, não é possível cadastrar!\n";
+  }  
+  //Verifica se o prisioneiro já está em alguma cela (verifica todas as celas)
+  else if(isPrisoner(prisoner.getCPF())) {
+    cerr << "Já é prisioneiro!\n";
+  }
+  //Se o prisoneiro não está em nenhuma cela e nem é funcionário, então será registrado
+  else {
+    cells[indexCell].addPrisoner(prisoner);
+  }
+} 
 
 //Update employee
   //Name  
@@ -56,36 +85,6 @@ void Penitentiary::updateEmployeeWorkLoad(string cpf, int workLoad) {
     }
   }
 }
-
-//Register employee
-void Penitentiary::registerEmployee(Employee employee) {
-  //Se for prisioneiro
-  if(isPrisoner(employee.getCPF())) {
-    cerr << "O usuário é um prisioneiro!\n";
-  }
-  //Se não está contido nos funcionários e nem é prisioneiro, um novo funcionário é cadastrado
-  else if(!isEmployeeContained(employee.getCPF())) {
-    employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
-  } else {
-    cerr << "Funcionário já está cadastrado!\n";
-  }
-}
-
-//Register prisoner
-//Recebe dados do prisioneiro e o índice da cela que será cadastrado
-void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
-  if(isEmployeeContained(prisoner.getCPF())) {
-    cerr << "O usuário é um funcionário, não é possível cadastrar!\n";
-  }  
-  //Verifica se o prisioneiro já está em alguma cela (verifica todas as celas)
-  else if(isPrisoner(prisoner.getCPF())) {
-    cerr << "Já é prisioneiro!\n";
-  }
-  //Se o prisoneiro não está em nenhuma cela e nem é funcionário, então será registrado
-  else {
-    cells[indexCell].addPrisoner(prisoner);
-  }
-} 
 
 //Delete Employee
 void Penitentiary::deleteEmployee(string cpf) {
