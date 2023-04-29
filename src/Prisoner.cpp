@@ -20,8 +20,8 @@ string Prisoner::getCrime(){
   return crime;
 }
 
-void Prisoner::printAttributes(){
-  cout << getName() << " " << getSex()<< " " << getCPF() << " " << getAge() << " " << getSkinColor() << " " << isPDL() << " " << getCrime() << endl;
+string Prisoner::strAttributes(){
+  return getName() + "," + getSex() + "," + getCPF() + "," + to_string(getAge()) + "," + getSkinColor() + "," + to_string(isPDL()) + "," + getCrime() + "\n";
 }
         
 Prisoner::~Prisoner(){}

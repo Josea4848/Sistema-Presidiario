@@ -16,7 +16,7 @@ class Prisoner  : public Person
         void setCrime(string);
         string getCrime();
         
-        void printAttributes();
+        string strAttributes();
         
         virtual ~Prisoner();
 

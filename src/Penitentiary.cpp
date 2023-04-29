@@ -1,7 +1,12 @@
 #include "../include/Penitentiary.h"
 
 //Construtor
-Penitentiary::Penitentiary(){}
+Penitentiary::Penitentiary(){
+  //Inicializa todas as celas
+  for(int i = 0; i < n_CELLS; i++) {
+    cells[i] = new Cell();
+  }
+}
 
 //Get Employee
 Employee Penitentiary::getEmployee(int emplIndex){
@@ -12,7 +17,7 @@ Employee Penitentiary::getEmployee(int emplIndex){
 }
 //Get Prisoner
 Cell* Penitentiary::getCell(int cellsIndex){
-  return &cells[cellsIndex];
+  return cells[cellsIndex];
 }
 
 //Register employee
@@ -41,7 +46,7 @@ void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
   }
   //Se o prisoneiro não está em nenhuma cela e nem é funcionário, então será registrado
   else {
-    cells[indexCell].addPrisoner(prisoner);
+    cells[indexCell]->addPrisoner(prisoner);
   }
 } 
 
@@ -92,8 +97,8 @@ void Penitentiary::updatePrisonerName(string cpf, string name) {
   if(isPrisoner(cpf)) {
     for(int i = 0; i < n_CELLS; i++) {
       //Caso o prisioneiro esteja na cela
-      if(cells[i].isPrisonerContained(cpf)) {
-        cells[i].modifyName(cpf, name);
+      if(cells[i]->isPrisonerContained(cpf)) {
+        cells[i]->modifyName(cpf, name);
         break;
       }
     }
@@ -107,8 +112,8 @@ void Penitentiary::updatePrisonerAge(string cpf, int age) {
   if(isPrisoner(cpf)) {
     for(int i = 0; i < n_CELLS; i++) {
       //Caso o prisioneiro esteja na cela
-      if(cells[i].isPrisonerContained(cpf)) {
-        cells[i].modifyAge(cpf, age);
+      if(cells[i]->isPrisonerContained(cpf)) {
+        cells[i]->modifyAge(cpf, age);
         break;
       }
     }
@@ -122,8 +127,8 @@ void Penitentiary::updatePrisonerCrime(string cpf,string crime) {
   if(isPrisoner(cpf)) {
     for(int i = 0; i < n_CELLS; i++) {
       //Caso o prisioneiro esteja na cela
-      if(cells[i].isPrisonerContained(cpf)) {
-        cells[i].modifyCrime(cpf, crime);
+      if(cells[i]->isPrisonerContained(cpf)) {
+        cells[i]->modifyCrime(cpf, crime);
         break;
       }
     }
@@ -151,8 +156,8 @@ void Penitentiary::deletePrisoner(string cpf) {
   if(isPrisoner(cpf)) {
     for(int i = 0; i < n_LIMITE; i++) {  
     //Caso o prisioneiro não esteja na cela, a ação não será executada
-      if(cells[i].isPrisonerContained(cpf)) {
-        cells[i].removePrisoner(cpf);
+      if(cells[i]->isPrisonerContained(cpf)) {
+        cells[i]->removePrisoner(cpf);
         break;
       }
     }
@@ -175,7 +180,7 @@ bool Penitentiary::isEmployeeContained(string cpf) {
 //Is prisoner, verifica em todas as celas
 bool Penitentiary::isPrisoner(string cpf) {
   for(int i = 0; i < n_CELLS; i++) {
-    if(cells[i].isPrisonerContained(cpf)) 
+    if(cells[i]->isPrisonerContained(cpf)) 
       return true;
   }
   //Se o prisioneiro não estiver em nenhuma cela
@@ -187,15 +192,15 @@ void Penitentiary::prisonersNumbers() {
   for(int i = 0; i < n_CELLS; i++) {
     cout << "Cela C" << i << ": ";
     //Exibe pontos para cada prisioneiro
-    for(int j = 0; j < cells[i].numberPrisoners(); j++) {
+    for(int j = 0; j < cells[i]->numberPrisoners(); j++) {
       cout << "∎";
     }
     //Exibe espaços vazio
-    for(int k = 0; k < n_LIMITE - cells[i].numberPrisoners(); k++) {
+    for(int k = 0; k < n_LIMITE - cells[i]->numberPrisoners(); k++) {
       cout << " ";
     }
 
-    cout << " [" << cells[i].numberPrisoners() << "/" << n_LIMITE << "]\n";
+    cout << " [" << cells[i]->numberPrisoners() << "/" << n_LIMITE << "]\n";
   }
 }
 

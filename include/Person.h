@@ -45,7 +45,7 @@ public:
     virtual bool isPDL();
     
     //Exibe os atributos
-    virtual void printAttributes() = 0;
+    virtual string strAttributes() = 0;
 
     //Destrutor
     virtual ~Person();

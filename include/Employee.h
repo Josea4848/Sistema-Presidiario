@@ -29,7 +29,7 @@ public:
     void setWorkLoad(int workLoad);
     int getWorkLoad(); 
     
-    void printAttributes();
+    string strAttributes();
 
     virtual ~Employee();
 

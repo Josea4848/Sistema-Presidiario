@@ -9,8 +9,6 @@
 
 //Passível de alteração sobre os vetores
 #define n_CELLS 10
-#define n_EMPLOYERS 10
-
 
 class Penitentiary
 {
@@ -51,12 +49,15 @@ class Penitentiary
         //Numbers of prisoners situation
         void prisonersNumbers();
 
+        //toString CSV
+        string toStringEmployee(int index);
+
         // === Destrutor ===
         virtual ~Penitentiary();
     
     private:
         vector<Employee*> employees;
-        Cell cells[n_CELLS];
+        Cell *cells[n_CELLS];
 };
 
 #endif
