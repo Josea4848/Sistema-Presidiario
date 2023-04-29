@@ -15,7 +15,7 @@ Prisoner* Cell::getPrisoner(int index) {
 //Print prisoners
 void Cell::printPrisoners() {
   for(Prisoner *prisonerRegistered: prisoners) {
-      prisonerRegistered->printAttributes();
+      cout << prisonerRegistered->strAttributes();
   }
 }
 

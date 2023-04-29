@@ -49,9 +49,6 @@ class Penitentiary
         //Numbers of prisoners situation
         void prisonersNumbers();
 
-        //toString CSV
-        string toStringEmployee(int index);
-
         // === Destrutor ===
         virtual ~Penitentiary();
     
