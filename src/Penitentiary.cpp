@@ -1,5 +1,7 @@
 #include "../include/Penitentiary.h"
 
+
+
 //Construtor
 Penitentiary::Penitentiary(){
   //Inicializa todas as celas
@@ -21,6 +23,60 @@ Cell* Penitentiary::getCell(int cellsIndex){
 }
 
 //Register employee
+void Penitentiary::registerEmployeeCSV(string data) {
+  stringstream linhaStream(data);
+  string name, cpf, skinColor, office;
+  string sex;
+  string age, workLoad;
+  string wage;
+  string pdl;
+
+  //Name
+  getline(linhaStream, name, ',');
+  //CPF
+  getline(linhaStream, cpf, ',');
+  //SkinColor
+  getline(linhaStream, skinColor, ',');
+  //Sex
+  getline(linhaStream, sex, ',');
+  //Age
+  getline(linhaStream, age, ',');
+  //pdl
+  getline(linhaStream, pdl, ',');
+  //office
+  getline(linhaStream, office, ',');
+  //workLoad
+  getline(linhaStream, workLoad, ',');
+  //Wage
+  getline(linhaStream, wage);
+
+  registerEmployee(Employee(name, cpf, skinColor, sex[0], stoi(age), (pdl == "1") ? true : false, office, stod(wage), stoi(workLoad)));
+}
+
+void Penitentiary::registerPrisonerCSV(string data) {
+  stringstream linhaStream(data);
+  string name, cpf, skinColor, crime, sex, age, pdl, cell;
+
+  //Name
+  getline(linhaStream, name, ',');
+  //CPF
+  getline(linhaStream, cpf, ',');
+  //SkinColor
+  getline(linhaStream, skinColor, ',');
+  //Sex
+  getline(linhaStream, sex, ',');
+  //Age
+  getline(linhaStream, age, ',');
+  //pdl
+  getline(linhaStream, pdl, ',');
+  //Crime
+  getline(linhaStream, crime, ',');
+  //Cell
+  getline(linhaStream, cell);
+
+  registerPrisoner(Prisoner(name, cpf, skinColor, sex[0], stoi(age), (pdl == "1") ? true : false, crime), stoi(cell));
+}
+
 void Penitentiary::registerEmployee(Employee employee) {
   //Se for prisioneiro
   if(isPrisoner(employee.getCPF())) {
