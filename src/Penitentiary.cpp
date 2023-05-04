@@ -1,7 +1,5 @@
 #include "../include/Penitentiary.h"
 
-
-
 //Construtor
 Penitentiary::Penitentiary(){
   //Inicializa todas as celas
@@ -18,8 +16,8 @@ Employee Penitentiary::getEmployee(int emplIndex){
     return Employee();
 }
 //Get Prisoner
-Cell* Penitentiary::getCell(int cellsIndex){
-  return cells[cellsIndex];
+Cell Penitentiary::getCell(int cellsIndex){
+  return *cells[cellsIndex];
 }
 
 //Register employee
@@ -260,6 +258,29 @@ void Penitentiary::prisonersNumbers() {
   }
 }
 
+//toString
+string Penitentiary::toStringEmployee(int index) {
+  if(index < employeesNumber()) {
+    return employees[index]->strAttributes();
+  }    
+  else {
+    cerr << "Funcionário(a) não existe\n";
+    return "null\n";
+  }
+}
+string Penitentiary::toStringPrisoner(int cellIndex, int index) {
+  if(cellIndex < n_CELLS && index < getCell(cellIndex).numberPrisoners()) {
+    return getCell(cellIndex).getPrisoner(index)->strAttributes() + "," + to_string(cellIndex);
+  } else {
+    cerr << "Prisioneiro não existe!\n";
+    return "null\n";
+  }
+}
+
+//Numbers
+int Penitentiary::employeesNumber() {
+  return employees.size();
+}
 
 //Destrutor
 Penitentiary::~Penitentiary(){}

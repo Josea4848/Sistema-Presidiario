@@ -55,7 +55,7 @@ int Employee::getWorkLoad() {
 
 //Exibe atributos
 string Employee::strAttributes(){
-  return getName() + "," + getCPF() + ","  + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + to_string(getWage()) + "," + to_string(getWorkLoad());
+  return getName() + "," + getCPF() + "," + getSkinColor() + "," + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + to_string(getWage()) + "," + to_string(getWorkLoad());
 }
 
 Employee::~Employee(){}
