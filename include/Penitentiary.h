@@ -3,6 +3,7 @@
 
 #pragma once
 #include <vector>
+#include <sstream>
 #include "Employee.h"
 #include "Prisoner.h"
 #include "Cell.h"
@@ -21,6 +22,8 @@ class Penitentiary
         Cell* getCell(int cellsIndex);
 
         // === Register ===
+        void registerEmployeeCSV(string data);
+        void registerPrisonerCSV(string data);
         void registerEmployee(Employee employee);
         void registerPrisoner(Prisoner prisoner, int indexCell);
 
