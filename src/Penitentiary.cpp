@@ -283,4 +283,13 @@ int Penitentiary::employeesNumber() {
 }
 
 //Destrutor
-Penitentiary::~Penitentiary(){}
+Penitentiary::~Penitentiary() {
+  //delete employees
+  for(int i = 0; i < employees.size(); i++) {
+    delete employees[i];
+  }
+  //delete cells
+  for(int i = 0; i < n_CELLS; i++) {
+    delete cells[i];
+  }
+}

@@ -6,6 +6,17 @@
 #include "Penitentiary.h"
 using namespace std;
 
+void exibirMenu() {
+    //Menu de opções 
+    cout << "Qual operação deseja realizar?\n" << endl <<
+                "1 - Inserir dado" << endl <<
+                "2 - Alterar dado" << endl <<
+                "3 - Pesquisar por meio do nome" << endl <<
+                "4 - Remover dado" << endl <<
+                "5 - Exibir dado" << endl <<
+                "6 - Sair\n" << endl;
+}
+
 int main(){
     Penitentiary *penitentiary = new Penitentiary();
 
@@ -19,14 +30,7 @@ int main(){
     cout << "\n\t\t\t\t******* Sistema de Controle da Penitenciária *******\n" << endl;
 
     while(running){
-    //Menu de opções 
-    cout << "Qual operação deseja realizar?\n" << endl <<
-                "1 - Inserir dado" << endl <<
-                "2 - Alterar dado" << endl <<
-                "3 - Pesquisar por meio do nome" << endl <<
-                "4 - Remover dado" << endl <<
-                "5 - Exibir dado" << endl <<
-                "6 - Sair\n" << endl;
+        exibirMenu();
 
     cin >> option;
     switch(option){

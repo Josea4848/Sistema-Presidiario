@@ -110,4 +110,8 @@ bool Cell::isPrisonerContained(string cpf) {
 }
 
 //Destrutor
-Cell::~Cell() {}
+Cell::~Cell() {
+  for(Prisoner *prisoner: prisoners) {
+    delete prisoner;
+  }
+}
