@@ -2,6 +2,7 @@
 #define EMPLOYEE_H
 
 #include <iostream>
+#include <sstream>
 #include "../include/Person.h"
 
 using namespace std;

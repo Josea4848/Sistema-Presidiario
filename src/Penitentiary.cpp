@@ -16,8 +16,8 @@ Employee Penitentiary::getEmployee(int emplIndex){
     return Employee();
 }
 //Get Prisoner
-Cell Penitentiary::getCell(int cellsIndex){
-  return *cells[cellsIndex];
+Cell* Penitentiary::getCell(int cellsIndex){
+    return cells[cellsIndex];
 }
 
 //Register employee
@@ -47,6 +47,8 @@ void Penitentiary::registerEmployeeCSV(string data) {
   getline(linhaStream, workLoad, ',');
   //Wage
   getline(linhaStream, wage);
+
+  cout << wage << "==========" <<endl;
 
   registerEmployee(Employee(name, cpf, skinColor, sex[0], stoi(age), (pdl == "1") ? true : false, office, stod(wage), stoi(workLoad)));
 }
@@ -269,8 +271,8 @@ string Penitentiary::toStringEmployee(int index) {
   }
 }
 string Penitentiary::toStringPrisoner(int cellIndex, int index) {
-  if(cellIndex < n_CELLS && index < getCell(cellIndex).numberPrisoners()) {
-    return getCell(cellIndex).getPrisoner(index)->strAttributes() + "," + to_string(cellIndex);
+  if(cellIndex < n_CELLS && index < getCell(cellIndex)->numberPrisoners()) {
+    return getCell(cellIndex)->getPrisoner(index)->strAttributes() + "," + to_string(cellIndex);
   } else {
     cerr << "Prisioneiro não existe!\n";
     return "null\n";

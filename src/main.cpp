@@ -45,17 +45,14 @@ int main(){
         while (true) {
             string data;
             getline(*arquivoEmployee, data);
-            cout << data << endl;
-            penitentiary->registerEmployeeCSV(data);
             if(arquivoEmployee->eof())
                 break;
+            penitentiary->registerEmployeeCSV(data);            
         }
         //Closing file
         arquivoEmployee->close();    
-    }
+    } 
     //END Reading
-
-    cout << penitentiary->employeesNumber() << endl;
 
     //Reading data from prisoners.csv
     arquivoPrisoner->open(dirPrison, fstream::in);
@@ -76,8 +73,6 @@ int main(){
     setlocale(LC_ALL, "portuguese");
     cout << "===========================================\n Sistema de Controle da Penitenciária\n===========================================\n" << endl;
 
-    penitentiary->prisonersNumbers();
-
     while(running){
         //Dados gerais
         string name, cpf, skinColor;
@@ -93,7 +88,6 @@ int main(){
         unsigned short int cell;
         
         exibirMenu();
-
         cout << "Opção: ";
         cin >> option;
 
@@ -112,8 +106,8 @@ int main(){
                 clearTerminal();
                 continue;
             }
-            else if(penitentiary->isEmployeeContained(cpf)) {
-                cout << "O funcionário(a) com CPF: " << cpf << " já está cadastrado, tente novamente!\n";
+            else if(penitentiary->isEmployeeContained(cpf) || penitentiary->isPrisoner(cpf)) {
+                cout << "Já existe usuário com CPF: " << cpf << " cadastrado, tente novamente!\n";
                 sleep(2);
                 clearTerminal();
                 continue;
@@ -171,27 +165,20 @@ int main(){
                             cout << "Função atualizada com sucesso!\n";
                             break;
                         case 3:
-                            cout << "Função: ";
-                            getline(cin, office);
-                            penitentiary->updateEmployeeOffice(cpf, office);
-                            subRun = false;
-                            cout << "Função atualizada com sucesso!\n";
-                            break;
-                        case 4:
                             cout << "Idade: ";
                             cin >> age;
                             penitentiary->updateEmployeeAge(cpf, age);
                             subRun = false;
                             cout << "Idade atualizada com sucesso!\n";
                             break;
-                        case 5:
+                        case 4:
                             cout << "Salário: ";
                             cin >> wage;
                             penitentiary->updateEmployeeWage(cpf, wage);
                             subRun = false;
                             cout << "Salário atualizado com sucesso!\n";
                             break;
-                        case 6:
+                        case 5:
                             cout << "Carga Horária: ";
                             cin >> workLoad;
                             penitentiary->updateEmployeeWorkLoad(cpf, workLoad);
@@ -225,13 +212,13 @@ int main(){
                 //Atualizar Prisioneiro
                 cout << "CPF do prisioneiro que deseja atualizar o dado: ";
                 getline(cin, cpf);
-                if(penitentiary->isEmployeeContained(cpf)) {
+                if(penitentiary->isPrisoner(cpf)) {
                     bool subRun = true;
                     while (subRun) {
                         prisonerUpdateMenu();
                         cout << "Opção: ";
                         cin >> subOp;
-
+                        cin.ignore();
                         switch(subOp) {
                         case 1:
                             cout << "Nome: ";
@@ -270,14 +257,16 @@ int main(){
                 penitentiary->deletePrisoner(cpf);
                 break;
             case 7:
+                clearTerminal();
+                penitentiary->prisonersNumbers();
                 break;
             case 8:
                 //Encerrar o programa
-                cout << "Obrigado por utilizar nosso software. Bom trabalho!" << endl;
+                cout << "Obrigado por utilizar nosso software. Bom trabalho!\n" << endl;
                 running = false;
                 break;
             default:
-                cout << "Operação inválida. Por favor verifique as opções disponíveis" << endl;
+                cout << "Operação inválida. Por favor verifique as opções disponíveis\n" << endl;
                 break;
             }
         sleep(2);
@@ -295,17 +284,18 @@ int main(){
     } else {
         cerr << "Não foi possível salvar as alterações feitas para os Funcionários!\n";
     }
-
+    
     //Registro dos dados Prisoner
     arquivoPrisoner->open(dirPrison, fstream::out);
     if(arquivoPrisoner->is_open()) {
         for(int i = 0; i < n_CELLS; i++) {
-            int prisonersNumber = penitentiary->getCell(0).numberPrisoners();
+            int prisonersNumber = penitentiary->getCell(i)->numberPrisoners();
             //Navega por todos prisioneiros de cada cela
             for(int j = 0; j < prisonersNumber; j++) {
+                cout << penitentiary->toStringPrisoner(i, j) << endl;
                 *arquivoPrisoner << penitentiary->toStringPrisoner(i, j) << endl;
             }
-        }
+        } 
         //Closing
         arquivoPrisoner->close();
     } else {

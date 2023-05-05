@@ -55,7 +55,11 @@ int Employee::getWorkLoad() {
 
 //Exibe atributos
 string Employee::strAttributes(){
-  return getName() + "," + getCPF() + "," + getSkinColor() + "," + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + to_string(getWage()) + "," + to_string(getWorkLoad());
+  stringstream streamPrecision;
+
+  streamPrecision << getWage(); 
+  
+  return getName() + "," + getCPF() + "," + getSkinColor() + "," + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + getOffice() + "," + to_string(getWorkLoad()) + "," + streamPrecision.str();
 }
 
 Employee::~Employee(){}

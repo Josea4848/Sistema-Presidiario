@@ -19,7 +19,7 @@ class Penitentiary
 
         // === Gets ===
         Employee getEmployee(int emplIndex);
-        Cell getCell(int cellsIndex);
+        Cell* getCell(int cellsIndex);
 
         // === Register ===
         void registerEmployeeCSV(string data);
@@ -61,10 +61,10 @@ class Penitentiary
 
         // === Destrutor ===
         virtual ~Penitentiary();
-    
+        
     private:
         vector<Employee*> employees;
-        Cell *cells[n_CELLS];
+        Cell *cells[n_CELLS]; 
 };
 
 #endif
