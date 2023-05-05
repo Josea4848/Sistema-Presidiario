@@ -1,28 +1,69 @@
 #include <iostream>
 #include <fstream>
-#include "Person.h"
-#include "Prisoner.h"
-#include "Employee.h"
-#include "Penitentiary.h"
+#include <unistd.h>
+#include "../include/Person.h"
+#include "../include/Prisoner.h"
+#include "../include/Employee.h"
+#include "../include/Penitentiary.h"
 
 using namespace std;
 
 void exibirMenu() {
     //Menu de opções 
-    cout << "Qual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Sair";
+    cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Sair\n\n";
+}
+
+void employeeUpdateMenu() {
+    cout << "Qual dado deseja atualizar?\n1 - Nome\n2 - Função\n3 - Idade\n4 - Salário\n5 - Carga Horária\n\n";
 }
 
 int main(){
     Penitentiary *penitentiary = new Penitentiary();
 
     //Variáveis de controle para o funcionamento do programa
-    fstream arquivoPrisoner, arquivoEmployee;
+    fstream *arquivoPrisoner = new fstream();
+    fstream *arquivoEmployee = new fstream();
     bool running = true;
     unsigned short int option = 0;
 
+    //Reading data from employees.csv
+    arquivoEmployee->open("../DataBase/bEmployees.csv", fstream::in);
+    if(arquivoEmployee->is_open()) {
+        while (true) {
+            string data;
+            getline(*arquivoEmployee, data);
+            cout << data << endl;
+            penitentiary->registerEmployeeCSV(data);
+            if(arquivoEmployee->eof())
+                break;
+        }
+        //Closing file
+        arquivoEmployee->close();    
+    }
+    //END Reading
+
+    cout << penitentiary->employeesNumber() << endl;
+
+    //Reading data from prisoners.csv
+    arquivoPrisoner->open("../DataBase/bPrisoners.csv", fstream::in);
+    if(arquivoPrisoner->is_open()) {
+        while (true) {
+            string data;
+            getline(*arquivoPrisoner, data);
+            if(arquivoPrisoner->eof())
+                break;
+            penitentiary->registerPrisonerCSV(data);
+        }
+        //Closing file
+        arquivoPrisoner->close();    
+    }
+    //END Reading
+
     // Necessário para utilização de acentuação gráfica
     setlocale(LC_ALL, "portuguese");
-    cout << "\n\t\t\t\t========= Sistema de Controle da Penitenciária =========\n" << endl;
+    cout << "===========================================\n Sistema de Controle da Penitenciária\n===========================================\n" << endl;
+
+    penitentiary->prisonersNumbers();
 
     while(running){
         //Dados gerais
@@ -40,6 +81,7 @@ int main(){
         
         exibirMenu();
 
+        cout << "Opção: ";
         cin >> option;
 
         //Clear buffer
@@ -50,30 +92,102 @@ int main(){
             getline(cin, name);
             cout << "| CPF: ";
             getline(cin, cpf);
+            if(penitentiary->isEmployeeContained(cpf)) {
+                cout << "O funcionário(a) com CPF: " << cpf << " já está cadastrado, tente novamente!\n";
+                sleep(2);
+                //Limpa terminal
+                system("clear");
+                continue;
+            }
             cout << "| SkinColor: ";
             getline(cin, skinColor);
             cout << "| Sexo: ";
             cin >> sex;
             cout << "| Idade: ";
             cin >> age;
-            cout << "| É uma pessoa privada de liberdade [0(não)/1(sim)]: ";
+            cout << "| É uma pessoa privada de liberdade [0 (não) | 1(sim)]: ";
             cin >> pdl;
+            cin.ignore();
         }
 
         switch(option){
             case 1:
                 //Registrar Funcionário
-                cin.ignore();
                 cout << "| Função: ";
                 getline(cin, office);
                 cout << "| Salário: ";
                 cin >> wage;
                 cout << "| Carga horária: ";
                 cin >> workLoad;
+                penitentiary->registerEmployee(Employee(name,cpf,skinColor,sex,age,pdl,office,wage,workLoad));
                 break;
             case 2:
                 //Atualizar Funcionário
-                
+                unsigned short subOp;
+                cout << "CPF do Funcionário(a) que deseja atualizar o dado: ";
+                getline(cin, cpf);
+                //Se o funcionário existir
+                if(penitentiary->isEmployeeContained(cpf)) {
+                    //controla o while abaixo, quando um dado é atualizado, recebe falso e para o loop
+                    bool subRun = true;
+                    while (subRun) {
+                        //Exibe menu
+                        employeeUpdateMenu();
+                        //subOption
+                        cin >> subOp;
+                        cin.ignore();
+                        switch (subOp) {
+                        //Name
+                        case 1:
+                            cout << "Nome: ";
+                            getline(cin, name);
+                            penitentiary->updateEmployeeName(cpf, name);
+                            subRun = false;
+                            cout << "Nome atualizado com sucesso!\n";
+                            break;
+                        case 2:
+                            cout << "Função: ";
+                            getline(cin, office);
+                            penitentiary->updateEmployeeOffice(cpf, office);
+                            subRun = false;
+                            cout << "Função atualizada com sucesso!\n";
+                            break;
+                        case 3:
+                            cout << "Função: ";
+                            getline(cin, office);
+                            penitentiary->updateEmployeeOffice(cpf, office);
+                            subRun = false;
+                            cout << "Função atualizada com sucesso!\n";
+                            break;
+                        case 4:
+                            cout << "Idade: ";
+                            cin >> age;
+                            penitentiary->updateEmployeeAge(cpf, age);
+                            subRun = false;
+                            cout << "Idade atualizada com sucesso!\n";
+                            break;
+                        case 5:
+                            cout << "Salário: ";
+                            cin >> wage;
+                            penitentiary->updateEmployeeWage(cpf, wage);
+                            subRun = false;
+                            cout << "Salário atualizado com sucesso!\n";
+                            break;
+                        case 6:
+                            cout << "Carga Horária: ";
+                            cin >> workLoad;
+                            penitentiary->updateEmployeeWorkLoad(cpf, workLoad);
+                            subRun = false;
+                            cout << "Carga Horária atualizada com sucesso!\n";
+                            break;
+                        default:
+                            cout << "Opção inválida, tente novamente!\n";
+                            continue;
+                        }
+                    }
+                }else {
+                    cout << "Funcionário(a) não encontrado(a)!\n";
+                }
                 break;
             case 3:
                 //Deletar Funcionário
@@ -90,16 +204,21 @@ int main(){
             case 6:
                 //Deletar Prisioneiro
             case 7:
+                break;
+            case 8:
                 //Encerrar o programa
                 cout << "Obrigado por utilizar nosso software. Bom trabalho!" << endl;
                 running = false;
                 break;
             default:
                 cout << "Operação inválida. Por favor verifique as opções disponíveis" << endl;
-                continue;
+                break;
             }
+        sleep(2);
+        system("clear");
+    } 
 
-    }
+    cout << penitentiary->getEmployee(1).getName();
 
     return 0;
 }

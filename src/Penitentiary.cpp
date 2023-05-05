@@ -84,7 +84,7 @@ void Penitentiary::registerEmployee(Employee employee) {
   else if(!isEmployeeContained(employee.getCPF())) {
     employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
   } else {
-    cerr << "Funcionário já está cadastrado!\n";
+    cerr << "O Funcionário com CPF: " << employee.getCPF() <<" já está cadastrado, insira um CPF válido!\n";
   }
 }
 
