@@ -63,26 +63,33 @@ int main(){
         switch(option){
             case 1:
                 //Registrar Funcionário
-
-                
+                cin.ignore();
+                cout << "| Função: ";
+                getline(cin, office);
+                cout << "| Salário: ";
+                cin >> wage;
+                cout << "| Carga horária: ";
+                cin >> workLoad;
                 break;
             case 2:
-                //Alterar dado
+                //Atualizar Funcionário
                 
                 break;
             case 3:
-                //Pesquisar por meio do nome
+                //Deletar Funcionário
                 
                 break;
             case 4:
-                //Remover dado
+                //Registrar Prisioneiro
                 
                 break;
             case 5:
-                //Exibir dado
+                //Atualizar Prisioneiro
                 
                 break;
             case 6:
+                //Deletar Prisioneiro
+            case 7:
                 //Encerrar o programa
                 cout << "Obrigado por utilizar nosso software. Bom trabalho!" << endl;
                 running = false;
