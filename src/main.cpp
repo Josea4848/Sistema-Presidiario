@@ -8,9 +8,21 @@
 
 using namespace std;
 
+const static string dirEmploy = "../DataBase/bEmployees.csv";
+const static string dirPrison = "../DataBase/bPrisoners.csv";
+
+void clearTerminal() {
+    //Limpa terminal
+    system("clear");
+}
+
 void exibirMenu() {
     //Menu de opções 
     cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Sair\n\n";
+}
+
+void prisonerUpdateMenu() {
+    cout << "Qual dado deseja atualizar?\n1 - Nome\n2 - Idade\n3 - Crime\n\n";
 }
 
 void employeeUpdateMenu() {
@@ -25,9 +37,10 @@ int main(){
     fstream *arquivoEmployee = new fstream();
     bool running = true;
     unsigned short int option = 0;
+    unsigned short int subOp = 0;
 
     //Reading data from employees.csv
-    arquivoEmployee->open("../DataBase/bEmployees.csv", fstream::in);
+    arquivoEmployee->open(dirEmploy, fstream::in);
     if(arquivoEmployee->is_open()) {
         while (true) {
             string data;
@@ -45,7 +58,7 @@ int main(){
     cout << penitentiary->employeesNumber() << endl;
 
     //Reading data from prisoners.csv
-    arquivoPrisoner->open("../DataBase/bPrisoners.csv", fstream::in);
+    arquivoPrisoner->open(dirPrison, fstream::in);
     if(arquivoPrisoner->is_open()) {
         while (true) {
             string data;
@@ -92,11 +105,17 @@ int main(){
             getline(cin, name);
             cout << "| CPF: ";
             getline(cin, cpf);
-            if(penitentiary->isEmployeeContained(cpf)) {
+            if (cpf.size() != 11) {
+                cout << "Valor de CPF inválido!\n";
+                //Limpa terminal
+                sleep(2);
+                clearTerminal();
+                continue;
+            }
+            else if(penitentiary->isEmployeeContained(cpf)) {
                 cout << "O funcionário(a) com CPF: " << cpf << " já está cadastrado, tente novamente!\n";
                 sleep(2);
-                //Limpa terminal
-                system("clear");
+                clearTerminal();
                 continue;
             }
             cout << "| SkinColor: ";
@@ -123,7 +142,6 @@ int main(){
                 break;
             case 2:
                 //Atualizar Funcionário
-                unsigned short subOp;
                 cout << "CPF do Funcionário(a) que deseja atualizar o dado: ";
                 getline(cin, cpf);
                 //Se o funcionário existir
@@ -191,18 +209,66 @@ int main(){
                 break;
             case 3:
                 //Deletar Funcionário
-                
+                cout << "CPF do Funcionário(a) que deseja remover: ";
+                getline(cin, cpf);
+                penitentiary->deleteEmployee(cpf);
                 break;
             case 4:
                 //Registrar Prisioneiro
-                
+                cout << "Crime(s) cometido(s): ";
+                getline(cin, crime);
+                cout << "Número da cela [0 à 9]: ";
+                cin >> cell;
+                penitentiary->registerPrisoner(Prisoner(name, cpf, skinColor, sex, age, pdl, crime), cell);
                 break;
             case 5:
                 //Atualizar Prisioneiro
-                
+                cout << "CPF do prisioneiro que deseja atualizar o dado: ";
+                getline(cin, cpf);
+                if(penitentiary->isEmployeeContained(cpf)) {
+                    bool subRun = true;
+                    while (subRun) {
+                        prisonerUpdateMenu();
+                        cout << "Opção: ";
+                        cin >> subOp;
+
+                        switch(subOp) {
+                        case 1:
+                            cout << "Nome: ";
+                            getline(cin, name);
+                            penitentiary->updatePrisonerName(cpf, name);
+                            subRun = false;
+                            cout << "Nome atualizado com sucesso!\n";
+                            break;
+                        case 2:
+                            cout << "Idade: ";
+                            cin >> age;
+                            penitentiary->updatePrisonerAge(cpf, age);
+                            subRun = false;
+                            cout << "Idade atualizada com sucesso!\n";
+                            break;
+                        case 3 :
+                            cout << "Crime(s): ";
+                            getline(cin, crime);
+                            penitentiary->updatePrisonerCrime(cpf, crime);
+                            subRun = false;
+                            cout << "Crime(s) atualizado(s) com sucesso!\n";
+                            break;
+                        default:
+                            cout << "Opção inválida, tente novamente!\n";
+                            continue;
+                        }
+                    }  
+                } else {
+                    cout << "Prisioneiro não encontrado!\n";
+                }
                 break;
             case 6:
-                //Deletar Prisioneiro
+                //Deletar Funcionário
+                cout << "CPF do Prisioneiro que deseja remover: ";
+                getline(cin, cpf);
+                penitentiary->deletePrisoner(cpf);
+                break;
             case 7:
                 break;
             case 8:
@@ -215,10 +281,36 @@ int main(){
                 break;
             }
         sleep(2);
-        system("clear");
+        clearTerminal();
     } 
 
-    cout << penitentiary->getEmployee(1).getName();
+    //Registro dos dados Employee
+    arquivoEmployee->open(dirEmploy, fstream::out);
+    if(arquivoEmployee->is_open()) {
+        for(int i = 0; i < penitentiary->employeesNumber(); i++) {
+            *arquivoEmployee << penitentiary->toStringEmployee(i) << endl;
+        }
+
+        arquivoEmployee->close();
+    } else {
+        cerr << "Não foi possível salvar as alterações feitas para os Funcionários!\n";
+    }
+
+    //Registro dos dados Prisoner
+    arquivoPrisoner->open(dirPrison, fstream::out);
+    if(arquivoPrisoner->is_open()) {
+        for(int i = 0; i < n_CELLS; i++) {
+            int prisonersNumber = penitentiary->getCell(0).numberPrisoners();
+            //Navega por todos prisioneiros de cada cela
+            for(int j = 0; j < prisonersNumber; j++) {
+                *arquivoPrisoner << penitentiary->toStringPrisoner(i, j) << endl;
+            }
+        }
+        //Closing
+        arquivoPrisoner->close();
+    } else {
+        cerr << "Não foi possível salvar as alterações feitas para os Prisioneiros!\n";
+    }
 
     return 0;
 }
