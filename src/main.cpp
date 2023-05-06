@@ -38,12 +38,14 @@ int main(){
     bool running = true;
     unsigned short int option = 0;
     unsigned short int subOp = 0;
+    string data;
 
     //Reading data from employees.csv
+    //ignora Primeira linha
     arquivoEmployee->open(dirEmploy, fstream::in);
+    getline(*arquivoEmployee, data);
     if(arquivoEmployee->is_open()) {
         while (true) {
-            string data;
             getline(*arquivoEmployee, data);
             if(arquivoEmployee->eof())
                 break;
@@ -58,9 +60,10 @@ int main(){
 
     //Reading data from prisoners.csv
     arquivoPrisoner->open(dirPrison, fstream::in);
+    //ignora primeira linha
+    getline(*arquivoPrisoner, data);
     if(arquivoPrisoner->is_open()) {
         while (true) {
-            string data;
             getline(*arquivoPrisoner, data);
             if(arquivoPrisoner->eof())
                 break;
@@ -289,6 +292,7 @@ int main(){
 
     //Registro dos dados Employee
     arquivoEmployee->open(dirEmploy, fstream::out);
+    *arquivoEmployee << "Nome,CPF,SkinColor,Sexo,Idade,isPDL,Função,CargaHor,Salário\n";
     if(arquivoEmployee->is_open()) {
         for(int i = 0; i < penitentiary->employeesNumber(); i++) {
             *arquivoEmployee << penitentiary->toStringEmployee(i) << endl;
@@ -301,6 +305,7 @@ int main(){
     
     //Registro dos dados Prisoner
     arquivoPrisoner->open(dirPrison, fstream::out);
+    *arquivoPrisoner << "Nome,CPF,SkinColor,Sexo,Idade,isPDL,Crime,Cela\n";
     if(arquivoPrisoner->is_open()) {
         for(int i = 0; i < n_CELLS; i++) {
             int prisonersNumber = penitentiary->getCell(i)->numberPrisoners();
