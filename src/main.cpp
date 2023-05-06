@@ -18,7 +18,7 @@ void clearTerminal() {
 
 void exibirMenu() {
     //Menu de opções 
-    cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Pesquisar ocorrências por nome\n9 - Sair\n\n";
+    cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Pesquisar ocorrências por nome\n9 - Listar prisioneiros de uma cela\n10 - Informações do quadro de Funcionários\n11 - Sair\n\n";
 }
 
 void prisonerUpdateMenu() {
@@ -54,8 +54,6 @@ int main(){
         //Closing file
         arquivoEmployee->close();    
     } 
-
-    
     //END Reading
 
     //Reading data from prisoners.csv
@@ -82,17 +80,19 @@ int main(){
 
     while(running){
         //Dados gerais
-        string name, cpf, skinColor;
-        unsigned int age;
-        char sex;
-        bool pdl;
+        string name = "";
+        string cpf = "";
+        string skinColor = "";
+        unsigned int age = 0;
+        char sex = '\0';
+        bool pdl = false;
         //Dados Funcionário
-        string office;
-        double wage;
-        unsigned int workLoad;
+        string office = "";
+        double wage = 0.0;
+        unsigned int workLoad = 0;
         //Dados prisioneiro
-        string crime;
-        unsigned short int cell;
+        string crime = "";
+        short int cell = -1;
         
         exibirMenu();
         cout << "Opção: ";
@@ -163,35 +163,30 @@ int main(){
                             getline(cin, name);
                             penitentiary->updateEmployeeName(cpf, name);
                             subRun = false;
-                            cout << "Nome atualizado com sucesso!\n";
                             break;
                         case 2:
                             cout << "Função: ";
                             getline(cin, office);
                             penitentiary->updateEmployeeOffice(cpf, office);
                             subRun = false;
-                            cout << "Função atualizada com sucesso!\n";
                             break;
                         case 3:
                             cout << "Idade: ";
                             cin >> age;
                             penitentiary->updateEmployeeAge(cpf, age);
                             subRun = false;
-                            cout << "Idade atualizada com sucesso!\n";
                             break;
                         case 4:
                             cout << "Salário: ";
                             cin >> wage;
                             penitentiary->updateEmployeeWage(cpf, wage);
                             subRun = false;
-                            cout << "Salário atualizado com sucesso!\n";
                             break;
                         case 5:
                             cout << "Carga Horária: ";
                             cin >> workLoad;
                             penitentiary->updateEmployeeWorkLoad(cpf, workLoad);
                             subRun = false;
-                            cout << "Carga Horária atualizada com sucesso!\n";
                             break;
                         default:
                             cout << "Opção inválida, tente novamente!\n";
@@ -233,21 +228,18 @@ int main(){
                             getline(cin, name);
                             penitentiary->updatePrisonerName(cpf, name);
                             subRun = false;
-                            cout << "Nome atualizado com sucesso!\n";
                             break;
                         case 2:
                             cout << "Idade: ";
                             cin >> age;
                             penitentiary->updatePrisonerAge(cpf, age);
                             subRun = false;
-                            cout << "Idade atualizada com sucesso!\n";
                             break;
                         case 3 :
                             cout << "Crime(s): ";
                             getline(cin, crime);
                             penitentiary->updatePrisonerCrime(cpf, crime);
                             subRun = false;
-                            cout << "Crime(s) atualizado(s) com sucesso!\n";
                             break;
                         default:
                             cout << "Opção inválida, tente novamente!\n";
@@ -278,6 +270,18 @@ int main(){
                 sleep(2);
                 break;
             case 9:
+                cout << "Cela que deseja listar [0 à 9]: ";
+                cin >> cell;
+                clearTerminal();
+                penitentiary->listPrisoners(cell);
+                sleep(2);
+                break;
+            case 10:
+                clearTerminal();
+                penitentiary->employeesSummary();
+                sleep(2);
+                break;
+            case 11:
                 //Encerrar o programa
                 cout << "Obrigado por utilizar nosso software. Bom trabalho!\n" << endl;
                 running = false;
@@ -292,7 +296,7 @@ int main(){
 
     //Registro dos dados Employee
     arquivoEmployee->open(dirEmploy, fstream::out);
-    *arquivoEmployee << "Nome,CPF,SkinColor,Sexo,Idade,isPDL,Função,CargaHor,Salário\n";
+    *arquivoEmployee << "Nome;CPF;SkinColor;Sexo;Idade;isPDL;Função;CargaHor;Salário\n";
     if(arquivoEmployee->is_open()) {
         for(int i = 0; i < penitentiary->employeesNumber(); i++) {
             *arquivoEmployee << penitentiary->toStringEmployee(i) << endl;
@@ -305,7 +309,7 @@ int main(){
     
     //Registro dos dados Prisoner
     arquivoPrisoner->open(dirPrison, fstream::out);
-    *arquivoPrisoner << "Nome,CPF,SkinColor,Sexo,Idade,isPDL,Crime,Cela\n";
+    *arquivoPrisoner << "Nome;CPF;SkinColor;Sexo;Idade;isPDL;Crime;Cela\n";
     if(arquivoPrisoner->is_open()) {
         for(int i = 0; i < n_CELLS; i++) {
             int prisonersNumber = penitentiary->getCell(i)->numberPrisoners();

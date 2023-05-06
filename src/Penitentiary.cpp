@@ -30,21 +30,21 @@ void Penitentiary::registerEmployeeCSV(string data) {
   string pdl;
 
   //Name
-  getline(linhaStream, name, ',');
+  getline(linhaStream, name, ';');
   //CPF
-  getline(linhaStream, cpf, ',');
+  getline(linhaStream, cpf, ';');
   //SkinColor
-  getline(linhaStream, skinColor, ',');
+  getline(linhaStream, skinColor, ';');
   //Sex
-  getline(linhaStream, sex, ',');
+  getline(linhaStream, sex, ';');
   //Age
-  getline(linhaStream, age, ',');
+  getline(linhaStream, age, ';');
   //pdl
-  getline(linhaStream, pdl, ',');
+  getline(linhaStream, pdl, ';');
   //office
-  getline(linhaStream, office, ',');
+  getline(linhaStream, office, ';');
   //workLoad
-  getline(linhaStream, workLoad, ',');
+  getline(linhaStream, workLoad, ';');
   //Wage
   getline(linhaStream, wage);
 
@@ -56,19 +56,19 @@ void Penitentiary::registerPrisonerCSV(string data) {
   string name, cpf, skinColor, crime, sex, age, pdl, cell;
 
   //Name
-  getline(linhaStream, name, ',');
+  getline(linhaStream, name, ';');
   //CPF
-  getline(linhaStream, cpf, ',');
+  getline(linhaStream, cpf, ';');
   //SkinColor
-  getline(linhaStream, skinColor, ',');
+  getline(linhaStream, skinColor, ';');
   //Sex
-  getline(linhaStream, sex, ',');
+  getline(linhaStream, sex, ';');
   //Age
-  getline(linhaStream, age, ',');
+  getline(linhaStream, age, ';');
   //pdl
-  getline(linhaStream, pdl, ',');
+  getline(linhaStream, pdl, ';');
   //Crime
-  getline(linhaStream, crime, ',');
+  getline(linhaStream, crime, ';');
   //Cell
   getline(linhaStream, cell);
 
@@ -76,8 +76,8 @@ void Penitentiary::registerPrisonerCSV(string data) {
 }
 
 void Penitentiary::registerEmployee(Employee employee) {
-  if(employee.getAge() < min_AGE) {
-    cerr << "Idade mínima é de " << min_AGE << " anos, não é possível realizar o cadastro!\n";
+  if(employee.getAge() < MIN_AGE) {
+    cerr << "Idade mínima é de " << MIN_AGE << " anos, não é possível realizar o cadastro!\n";
   }
   //Se for prisioneiro
   else if(isPrisoner(employee.getCPF())) {
@@ -96,8 +96,11 @@ void Penitentiary::registerEmployee(Employee employee) {
 //Register prisoner
 //Recebe dados do prisioneiro e o índice da cela que será cadastrado
 void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
-  if(prisoner.getAge() < min_AGE) {
-    cerr << "Idade mínima é de " << min_AGE << " anos, não é possível realizar o cadastro!\n";
+  if(indexCell >= n_CELLS) {
+    cerr << "Número de cela inválida! Não foi possível realizar o cadastro!\n";
+  }
+  else if(prisoner.getAge() < MIN_AGE) {
+    cerr << "Idade mínima é de " << MIN_AGE << " anos, não é possível realizar o cadastro!\n";
   }
   else if(isEmployeeContained(prisoner.getCPF())) {
     cerr << "O usuário é um funcionário, não é possível cadastrar!\n";
@@ -118,6 +121,8 @@ void Penitentiary::updateEmployeeName(string cpf, string name) {
   for(int i = 0; i < employees.size(); i++) {
     if(employees[i]->getCPF() == cpf) 
       employees[i]->setName(name);
+      cout << "Nome atualizado com sucesso!\n";
+      break;
   }
 }
   //Office
@@ -125,30 +130,45 @@ void Penitentiary::updateEmployeeOffice(string cpf, string office) {
   for(int i = 0; i < employees.size(); i++) {
     if(employees[i]->getCPF() == cpf) {
       employees[i]->setOffice(office);
+      cout << "Função atualizada com sucesso!\n";
+      break;
     }
   }
 }
   //Age
 void Penitentiary::updateEmployeeAge(string cpf, int age) {
-  for(int i = 0; i < employees.size(); i++) {
-    if(employees[i]->getCPF() == cpf) {
-      employees[i]->setAge(age);
+  if(age >= MIN_AGE) {
+    for(int i = 0; i < employees.size(); i++) {
+      if(employees[i]->getCPF() == cpf) {
+        employees[i]->setAge(age);
+        cout << "Idade atualizada com sucesso!\n";
+        break;
+      }
     }
+  } else {
+    cerr << "Idade inválida!\n";
   }
 }
   //Wage
 void Penitentiary::updateEmployeeWage(string cpf, double wage) {
-  for(int i = 0; i < employees.size(); i++) {
-    if(employees[i]->getCPF() == cpf) {
-      employees[i]->setWage(wage);
+  if(wage > 0) {
+    for(int i = 0; i < employees.size(); i++) {
+      if(employees[i]->getCPF() == cpf) {
+        employees[i]->setWage(wage);
+        cout << "Salário atualizado com sucesso!\n";
+        break;
+      }
     }
   }
+    
 }
   //WorkLoad
 void Penitentiary::updateEmployeeWorkLoad(string cpf, int workLoad) {
   for(int i = 0; i < employees.size(); i++) {
     if(employees[i]->getCPF() == cpf) {
       employees[i]->setWorkLoad(workLoad);
+      cout << "Carga Horária atualizada com sucesso!\n";
+      break;
     }
   }
 }
@@ -249,7 +269,7 @@ bool Penitentiary::isPrisoner(string cpf) {
   //Se o prisioneiro não estiver em nenhuma cela
   return false;
 }
-//Prisoners Numbers
+//Summary
 void Penitentiary::prisonersNumbersSummary() {
   cout << "======== Número de presidiários =======\n";
   for(int i = 0; i < n_CELLS; i++) {
@@ -268,6 +288,28 @@ void Penitentiary::prisonersNumbersSummary() {
 
   cout << "\tTotal: " << prisonersNumber() << " de " << n_LIMITE*n_CELLS << "[" << (double)prisonersNumber()/(n_LIMITE*n_CELLS)*100 << "%]\n";
 }
+void Penitentiary::employeesSummary() {
+  cout << "========= Informações dos funcionários =========\n\n";
+
+  cout << "| Quantidade de funcionários: " << employees.size() << endl;
+  cout << "\n| Média salarial: R$" << wageTotal()/employees.size() << endl;
+  cout << "\n| Custo salarial: R$" << wageTotal() << endl; 
+
+  int indexMaior = 0, indexMenor = 0;
+
+  for(int i = 0; i < employeesNumber(); i++) {
+    //Maior salário
+    if(employees[i]->getWage() > employees[indexMaior]->getWage())
+      indexMaior = i;
+    //Menor salário
+    if(employees[i]->getWage() < employees[indexMenor]->getWage())  
+      indexMenor = i;
+  }
+
+  cout << "\n| Maior salário: R$" << employees[indexMaior]->getWage() << endl;
+  cout << "\n| Menor salário: R$" << employees[indexMenor]->getWage() << endl;
+}
+
 
 //toString
 string Penitentiary::toStringEmployee(int index) {
@@ -281,7 +323,7 @@ string Penitentiary::toStringEmployee(int index) {
 }
 string Penitentiary::toStringPrisoner(int cellIndex, int index) {
   if(cellIndex < n_CELLS && index < getCell(cellIndex)->numberPrisoners()) {
-    return getCell(cellIndex)->getPrisoner(index)->strAttributes() + "," + to_string(cellIndex);
+    return getCell(cellIndex)->getPrisoner(index)->strAttributes() + ";" + to_string(cellIndex);
   } else {
     cerr << "Prisioneiro não existe!\n";
     return "null\n";
@@ -304,7 +346,7 @@ int Penitentiary::prisonersNumber() {
 
 //Search
 void Penitentiary::searchByName(string name) {
-  cout << "========== Procura por " << name << " ==========" << endl; 
+  cout << "========== Procura por \"" << name << "\" ==========" << endl; 
   int total = 0;
 
   //Procurando nos funcionários
@@ -326,6 +368,26 @@ void Penitentiary::searchByName(string name) {
   }
 
   cout << "\n| Total de ocorrências: " << total << endl;
+}
+
+//listPrisoners
+void Penitentiary::listPrisoners(int cell) {
+  if(cell < n_CELLS) {
+    cout << "========== Cela " << cell << " ==========\n";
+    cells[cell]->printPrisoners();
+  } else {
+    cerr << "Cela inválida\n";
+  }   
+}
+
+//total Salary
+double Penitentiary::wageTotal() {
+  double total = 0;
+  for(Employee *employee: employees) {
+    total += employee->getWage();
+  }
+
+  return total;
 }
 
 //Destrutor

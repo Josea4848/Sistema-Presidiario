@@ -3,6 +3,7 @@
 
 #pragma once
 #include <string>
+#define MIN_AGE 18
 
 using namespace std;
 

@@ -4,14 +4,13 @@
 #pragma once
 #include <vector>
 #include <sstream>
+#include <unistd.h>
 #include "Employee.h"
 #include "Prisoner.h"
 #include "Cell.h"
 
 //Passível de alteração sobre os vetores
 #define n_CELLS 10
-#define min_AGE 18
-
 class Penitentiary
 {
     public:
@@ -50,8 +49,9 @@ class Penitentiary
         //Is prisoner
         bool isPrisoner(string cpf);
 
-        //Numbers of prisoners situation
+        //Summary
         void prisonersNumbersSummary();
+        void employeesSummary();
 
         //Prisoners/Employees
         int employeesNumber();
@@ -63,6 +63,12 @@ class Penitentiary
 
         //search by name
         void searchByName(string name);
+
+        //List prisoners
+        void listPrisoners(int cell);
+
+        //Total salary
+        double wageTotal();
 
         // === Destrutor ===
         virtual ~Penitentiary();

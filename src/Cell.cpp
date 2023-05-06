@@ -13,9 +13,9 @@ Prisoner* Cell::getPrisoner(int index) {
 }
 
 //Print prisoners
-void Cell::printPrisoners() {
-  for(Prisoner *prisonerRegistered: prisoners) {
-      cout << prisonerRegistered->strAttributes();
+void Cell::printPrisoners() {  
+  for(Prisoner *prisoner: prisoners) {
+      cout << "| Nome: " << prisoner->getName() << " | CPF: " << prisoner->getCPF() << " | Idade: " << prisoner->getAge() << " | Crime: " << prisoner->getCrime() << endl << endl;
   }
 }
 
@@ -61,22 +61,32 @@ void Cell::modifyName(string cpf, string name) {
   for(int i = 0; i < prisoners.size(); i++) {
     if(prisoners[i]->getCPF() == cpf) {
       prisoners[i]->setName(name);
+      cout << "Nome atualizado com sucesso!\n";
+      break;
     }
   }
 }
   //Age
 void Cell::modifyAge(string cpf, int age) {
-  for(int i = 0; i < prisoners.size(); i++) {
-    if(prisoners[i]->getCPF() == cpf) {
-      prisoners[i]->setAge(age);
+  if(age >= MIN_AGE) {
+    for(int i = 0; i < prisoners.size(); i++) {
+      if(prisoners[i]->getCPF() == cpf) {
+        prisoners[i]->setAge(age);
+        cout << "Idade atualizada com sucesso!\n";
+        break;
+      }
     }
-  }
+  } else {
+    cerr << "Idade inválida!\n";
+  } 
 } 
   //Crime
 void Cell::modifyCrime(string cpf, string crime) {
   for(int i = 0; i < prisoners.size(); i++) {
     if(prisoners[i]->getCPF() == cpf) {
       prisoners[i]->setCrime(crime);
+      cout << "Crime(s) atualizado(s) com sucesso!\n";
+      break;
     }
   }
 }

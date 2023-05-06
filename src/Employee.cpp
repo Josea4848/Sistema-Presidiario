@@ -59,7 +59,7 @@ string Employee::strAttributes(){
 
   streamPrecision << getWage(); 
   
-  return getName() + "," + getCPF() + "," + getSkinColor() + "," + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + getOffice() + "," + to_string(getWorkLoad()) + "," + streamPrecision.str();
+  return getName() + ";" + getCPF() + ";" + getSkinColor() + ";" + getSex() + ";" + to_string(getAge()) + ";" + to_string(isPDL()) + ";" + getOffice() + ";" + to_string(getWorkLoad()) + ";" + streamPrecision.str();
 }
 
 Employee::~Employee(){}

@@ -21,7 +21,7 @@ string Prisoner::getCrime(){
 }
 
 string Prisoner::strAttributes(){
-  return getName() + "," + getCPF() + "," + getSkinColor() + "," + getSex() + "," + to_string(getAge()) + "," + to_string(isPDL()) + "," + getCrime();
+  return getName() + ";" + getCPF() + ";" + getSkinColor() + ";" + getSex() + ";" + to_string(getAge()) + ";" + to_string(isPDL()) + ";" + getCrime();
 }
         
 Prisoner::~Prisoner(){}
