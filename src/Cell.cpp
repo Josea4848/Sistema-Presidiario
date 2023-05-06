@@ -46,6 +46,7 @@ void Cell::addPrisoner(Prisoner prisoner) {
     //Caso não esteja contido, será criado um novo objeto no vetor
     if(!possui) {
       prisoners.push_back(new Prisoner(prisoner.getName(), prisoner.getCPF(), prisoner.getSkinColor(), prisoner.getSex(), prisoner.getAge(), prisoner.isPDL(), prisoner.getCrime()));
+      cout << "Prisioneiro cadastrado com sucesso!\n";
     } 
   }
   //Se estiver, uma mensagem será disparada na saída de erro
@@ -89,6 +90,7 @@ void Cell::removePrisoner(string cpf) {
     for(int i = 0; i < prisoners.size(); i++) {
       if(prisoners[i]->getCPF() == cpf) {
         prisoners.erase(prisoners.begin() + i);
+        cout << "Prisioneiro removido com sucesso!\n";
         break;
       }
     }

@@ -10,6 +10,7 @@
 
 //Passível de alteração sobre os vetores
 #define n_CELLS 10
+#define min_AGE 18
 
 class Penitentiary
 {
@@ -50,14 +51,18 @@ class Penitentiary
         bool isPrisoner(string cpf);
 
         //Numbers of prisoners situation
-        void prisonersNumbers();
+        void prisonersNumbersSummary();
 
         //Prisoners/Employees
         int employeesNumber();
-        
+        int prisonersNumber();
+
         //toString
         string toStringEmployee(int index);
         string toStringPrisoner(int cellIndex, int index);
+
+        //search by name
+        void searchByName(string name);
 
         // === Destrutor ===
         virtual ~Penitentiary();

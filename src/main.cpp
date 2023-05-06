@@ -18,7 +18,7 @@ void clearTerminal() {
 
 void exibirMenu() {
     //Menu de opções 
-    cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Sair\n\n";
+    cout << "\nQual operação deseja realizar?\n1 - Registrar Funcionário\n2 - Atualizar Funcionário\n3 - Deletar Funcionário\n4 - Registrar Prisioneiro\n5 - Atualizar Prisioneiro\n6 - Deletar Prisioneiro\n7 - Resumo do número de prisioneiros\n8 - Pesquisar ocorrências por nome\n9 - Sair\n\n";
 }
 
 void prisonerUpdateMenu() {
@@ -52,6 +52,8 @@ int main(){
         //Closing file
         arquivoEmployee->close();    
     } 
+
+    
     //END Reading
 
     //Reading data from prisoners.csv
@@ -68,6 +70,8 @@ int main(){
         arquivoPrisoner->close();    
     }
     //END Reading
+
+    clearTerminal();
 
     // Necessário para utilização de acentuação gráfica
     setlocale(LC_ALL, "portuguese");
@@ -146,6 +150,7 @@ int main(){
                         //Exibe menu
                         employeeUpdateMenu();
                         //subOption
+                        cout << "Opção: ";
                         cin >> subOp;
                         cin.ignore();
                         switch (subOp) {
@@ -202,9 +207,9 @@ int main(){
                 break;
             case 4:
                 //Registrar Prisioneiro
-                cout << "Crime(s) cometido(s): ";
+                cout << "| Crime(s) cometido(s): ";
                 getline(cin, crime);
-                cout << "Número da cela [0 à 9]: ";
+                cout << "| Número da cela [0 à 9]: ";
                 cin >> cell;
                 penitentiary->registerPrisoner(Prisoner(name, cpf, skinColor, sex, age, pdl, crime), cell);
                 break;
@@ -258,9 +263,18 @@ int main(){
                 break;
             case 7:
                 clearTerminal();
-                penitentiary->prisonersNumbers();
+                penitentiary->prisonersNumbersSummary();
+                sleep(2);
                 break;
             case 8:
+                //Pesquisa por nome
+                cout << "Nome que deseja buscar ocorrências: ";
+                getline(cin, name);
+                clearTerminal();
+                penitentiary->searchByName(name);
+                sleep(2);
+                break;
+            case 9:
                 //Encerrar o programa
                 cout << "Obrigado por utilizar nosso software. Bom trabalho!\n" << endl;
                 running = false;
@@ -292,7 +306,6 @@ int main(){
             int prisonersNumber = penitentiary->getCell(i)->numberPrisoners();
             //Navega por todos prisioneiros de cada cela
             for(int j = 0; j < prisonersNumber; j++) {
-                cout << penitentiary->toStringPrisoner(i, j) << endl;
                 *arquivoPrisoner << penitentiary->toStringPrisoner(i, j) << endl;
             }
         } 
@@ -301,6 +314,11 @@ int main(){
     } else {
         cerr << "Não foi possível salvar as alterações feitas para os Prisioneiros!\n";
     }
+
+    //Destrutores
+    delete penitentiary;
+    delete arquivoEmployee;
+    delete arquivoPrisoner;
 
     return 0;
 }

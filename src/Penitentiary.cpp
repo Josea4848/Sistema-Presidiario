@@ -48,8 +48,6 @@ void Penitentiary::registerEmployeeCSV(string data) {
   //Wage
   getline(linhaStream, wage);
 
-  cout << wage << "==========" <<endl;
-
   registerEmployee(Employee(name, cpf, skinColor, sex[0], stoi(age), (pdl == "1") ? true : false, office, stod(wage), stoi(workLoad)));
 }
 
@@ -78,22 +76,30 @@ void Penitentiary::registerPrisonerCSV(string data) {
 }
 
 void Penitentiary::registerEmployee(Employee employee) {
+  if(employee.getAge() < min_AGE) {
+    cerr << "Idade mínima é de " << min_AGE << " anos, não é possível realizar o cadastro!\n";
+  }
   //Se for prisioneiro
-  if(isPrisoner(employee.getCPF())) {
+  else if(isPrisoner(employee.getCPF())) {
     cerr << "O usuário é um prisioneiro!\n";
   }
   //Se não está contido nos funcionários e nem é prisioneiro, um novo funcionário é cadastrado
   else if(!isEmployeeContained(employee.getCPF())) {
     employees.push_back(new Employee(employee.getName(), employee.getCPF(), employee.getSkinColor(), employee.getSex(), employee.getAge(), employee.isPDL(), employee.getOffice(), employee.getWage(), employee.getWorkLoad()));
+
+    cout << "Funcionário(a) cadastrado(a) com sucesso!\n";
   } else {
-    cerr << "O Funcionário com CPF: " << employee.getCPF() <<" já está cadastrado, insira um CPF válido!\n";
+    cerr << "O Funcionário(a) com CPF: " << employee.getCPF() <<" já está cadastrado, insira um CPF válido!\n";
   }
 }
 
 //Register prisoner
 //Recebe dados do prisioneiro e o índice da cela que será cadastrado
 void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
-  if(isEmployeeContained(prisoner.getCPF())) {
+  if(prisoner.getAge() < min_AGE) {
+    cerr << "Idade mínima é de " << min_AGE << " anos, não é possível realizar o cadastro!\n";
+  }
+  else if(isEmployeeContained(prisoner.getCPF())) {
     cerr << "O usuário é um funcionário, não é possível cadastrar!\n";
   }  
   //Verifica se o prisioneiro já está em alguma cela (verifica todas as celas)
@@ -200,6 +206,7 @@ void Penitentiary::deleteEmployee(string cpf) {
     for(int i = 0; i < employees.size(); i++) {
       if(employees[i]->getCPF() == cpf) {
         employees.erase(employees.begin() + i);
+        cout << "Funcionário(a) removido(a) com sucesso!\n";
         break;
       }
     }
@@ -243,7 +250,7 @@ bool Penitentiary::isPrisoner(string cpf) {
   return false;
 }
 //Prisoners Numbers
-void Penitentiary::prisonersNumbers() {
+void Penitentiary::prisonersNumbersSummary() {
   cout << "======== Número de presidiários =======\n";
   for(int i = 0; i < n_CELLS; i++) {
     cout << "Cela C" << i << ": ";
@@ -258,6 +265,8 @@ void Penitentiary::prisonersNumbers() {
 
     cout << " [" << cells[i]->numberPrisoners() << "/" << n_LIMITE << "]\n";
   }
+
+  cout << "\tTotal: " << prisonersNumber() << " de " << n_LIMITE*n_CELLS << "[" << (double)prisonersNumber()/(n_LIMITE*n_CELLS)*100 << "%]\n";
 }
 
 //toString
@@ -282,6 +291,41 @@ string Penitentiary::toStringPrisoner(int cellIndex, int index) {
 //Numbers
 int Penitentiary::employeesNumber() {
   return employees.size();
+}
+int Penitentiary::prisonersNumber() {
+  int total = 0;
+
+  for(int i = 0; i < n_CELLS; i++) {
+    total += cells[i]->numberPrisoners();
+  }
+
+  return total;
+}
+
+//Search
+void Penitentiary::searchByName(string name) {
+  cout << "========== Procura por " << name << " ==========" << endl; 
+  int total = 0;
+
+  //Procurando nos funcionários
+  for(Employee *employee: employees) {
+    if(employee->getName().find(name) != string::npos) {
+      cout << "• " << employee->getName() << " | CPF: " << employee->getCPF() << "| Funcionário(a)\n";
+      total++;
+    }
+  }
+  //Procurando nos prisioneiros
+  for(Cell *cell: cells) {
+    for(int i = 0; i < cell->numberPrisoners(); i++) {
+      string namePrisoner = cell->getPrisoner(i)->getName();
+      if(namePrisoner.find(name) != string::npos) {
+        cout << "• " << name << " | CPF: " << cell->getPrisoner(i)->getCPF() << " | Prisioneiro\n";
+        total++;
+      }
+    }
+  }
+
+  cout << "\n| Total de ocorrências: " << total << endl;
 }
 
 //Destrutor
