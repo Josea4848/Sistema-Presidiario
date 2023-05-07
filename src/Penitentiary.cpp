@@ -96,7 +96,7 @@ void Penitentiary::registerEmployee(Employee employee) {
 //Register prisoner
 //Recebe dados do prisioneiro e o índice da cela que será cadastrado
 void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
-  if(indexCell >= n_CELLS) {
+  if(indexCell >= n_CELLS || indexCell < 0) {
     cerr << "Número de cela inválida! Não foi possível realizar o cadastro!\n";
   }
   else if(prisoner.getAge() < MIN_AGE) {
@@ -372,7 +372,7 @@ void Penitentiary::searchByName(string name) {
 
 //listPrisoners
 void Penitentiary::listPrisoners(int cell) {
-  if(cell < n_CELLS) {
+  if(cell < n_CELLS && cell >= 0) {
     cout << "========== Cela " << cell << " ==========\n";
     cells[cell]->printPrisoners();
   } else {
