@@ -207,7 +207,7 @@ int main(){
                 //Registrar Prisioneiro
                 cout << "| Crime(s) cometido(s): ";
                 getline(cin, crime);
-                cout << "| Número da cela [0 à 9]: ";
+                cout << "| Número da cela [0 à " << n_CELLS - 1 << "]: ";
                 cin >> cell;
                 penitentiary->registerPrisoner(Prisoner(name, cpf, skinColor, sex, age, pdl, crime), cell);
                 break;
