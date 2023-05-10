@@ -119,10 +119,11 @@ void Penitentiary::registerPrisoner(Prisoner prisoner, int indexCell) {
   //Name  
 void Penitentiary::updateEmployeeName(string cpf, string name) {
   for(int i = 0; i < employees.size(); i++) {
-    if(employees[i]->getCPF() == cpf) 
+    if(employees[i]->getCPF() == cpf) {
       employees[i]->setName(name);
       cout << "Nome atualizado com sucesso!\n";
       break;
+    }  
   }
 }
   //Office
